@@ -1,10 +1,17 @@
 package com.example.geres_trainer.database
 
 import android.content.Context
+import android.content.res.Resources
+import androidx.room.Database
 import androidx.room.Room
 import androidx.room.RoomDatabase
+import androidx.sqlite.db.SupportSQLiteDatabase
+import com.example.geres_trainer.R
+import com.example.geres_trainer.splitTranslation
 import java.security.AccessControlContext
 
+
+@Database(entities = [Translation::class], version = 1, exportSchema = false)
 abstract class TranslationDB : RoomDatabase() {
 
     abstract val translationDBDao: TranslationDBDao
@@ -28,14 +35,46 @@ abstract class TranslationDB : RoomDatabase() {
                         TranslationDB::class.java,
                         "translation_database"
                     )
+                        .addCallback(object : Callback() {
+                            override fun onCreate(db: SupportSQLiteDatabase) {
+                                super.onCreate(db)
+                                dbInit(context, getInstance(context))
+                            }
+
+                        })
                         .fallbackToDestructiveMigration()
                         .build()
+                    val dataBaseInit : RoomDatabase.Callback
                     INSTANCE = instance
                 }
 
                 return instance
             }
         }
+
+
+        /*
+        Prepoluates the database when created through a callback
+         */
+        private fun dbInit(context: Context, db: TranslationDB) {
+            val data = context.resources.getStringArray(R.array.translations)
+
+
+            for (value in data) {
+                val translationData = splitTranslation(value)
+
+                var translation = Translation()
+                translation.wordGer = translationData.get(0)
+                translation.wordES = translationData.get(1)
+                translation.info = translationData.get(2)
+
+                db.translationDBDao.insert(translation)
+            }
+        }
+
     }
+
+
+
 
 }

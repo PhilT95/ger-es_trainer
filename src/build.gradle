@@ -9,7 +9,7 @@ buildscript {
         version_core = "1.1.0"
         version_coroutine = "1.1.0"
         version_lifecycle_extensions = "2.0.0"
-        version_navigation = '1.0.0-beta02'
+        version_navigation = "2.1.0"
         version_room = "2.2.1"
     }
 
