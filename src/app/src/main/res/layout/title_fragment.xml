@@ -2,6 +2,12 @@
 <layout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools">
+    
+    <data>
+        <variable
+            name="titleFragmentViewModel"
+            type="com.example.geres_trainer.screens.title.TitleFragmentViewModel" />
+    </data>
 
 
     <androidx.constraintlayout.widget.ConstraintLayout
@@ -9,6 +15,7 @@
         android:layout_height="match_parent"
         tools:context=".screens.title.TitleFragment">
 
+        
 
         <Button
             android:id="@+id/playGameButton"
