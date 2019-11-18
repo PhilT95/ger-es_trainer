@@ -8,7 +8,11 @@
     <fragment
         android:id="@+id/gameFragment"
         android:name="com.example.geres_trainer.screens.game.GameFragment"
-        android:label="GameFragment" />
+        android:label="GameFragment" >
+        <action
+            android:id="@+id/action_gameFragment_to_titleFragment"
+            app:destination="@id/titleFragment" />
+    </fragment>
     <fragment
         android:id="@+id/titleFragment"
         android:name="com.example.geres_trainer.screens.title.TitleFragment"
@@ -16,5 +20,16 @@
         <action
             android:id="@+id/action_titleFragment_to_gameFragment"
             app:destination="@id/gameFragment" />
+        <action
+            android:id="@+id/action_titleFragment_to_viewFragment"
+            app:destination="@id/viewFragment" />
+    </fragment>
+    <fragment
+        android:id="@+id/viewFragment"
+        android:name="com.example.geres_trainer.screens.view.ViewFragment"
+        android:label="ViewFragment" >
+        <action
+            android:id="@+id/action_viewFragment_to_titleFragment"
+            app:destination="@id/titleFragment" />
     </fragment>
 </navigation>

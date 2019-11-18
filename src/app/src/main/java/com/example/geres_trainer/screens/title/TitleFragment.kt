@@ -47,8 +47,8 @@ class TitleFragment : Fragment () {
 
         }
 
-        binding.editWordsButton.setOnClickListener {
-
+        binding.viewWordsButton.setOnClickListener {
+            this.findNavController().navigate(R.id.action_titleFragment_to_viewFragment)
         }
 
         titleFragmentViewModel.showSnackbarEvent.observe(this, Observer {

@@ -28,7 +28,7 @@
             app:layout_constraintTop_toTopOf="parent" />
 
         <Button
-            android:id="@+id/addWordButton"
+            android:id="@+id/newWordButton"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginTop="20dp"
@@ -41,16 +41,15 @@
             app:layout_constraintVertical_bias="0.141" />
 
         <Button
-            android:id="@+id/editWordsButton"
+            android:id="@+id/viewWordsButton"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:onClick="@{() -> titleFragmentViewModel.onEdit()}"
             android:text="@string/viewWordsButton_text"
             app:layout_constraintBottom_toTopOf="@+id/clearButton"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintHorizontal_bias="0.498"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/addWordButton" />
+            app:layout_constraintTop_toBottomOf="@+id/newWordButton" />
 
         <Button
             android:id="@+id/clearButton"

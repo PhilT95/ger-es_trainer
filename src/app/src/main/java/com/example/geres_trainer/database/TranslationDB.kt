@@ -7,6 +7,7 @@ import androidx.room.Room
 import androidx.room.RoomDatabase
 import androidx.sqlite.db.SupportSQLiteDatabase
 import com.example.geres_trainer.R
+import com.example.geres_trainer.ioThread
 import com.example.geres_trainer.splitTranslation
 import java.security.AccessControlContext
 
@@ -38,7 +39,12 @@ abstract class TranslationDB : RoomDatabase() {
                         .addCallback(object : Callback() {
                             override fun onCreate(db: SupportSQLiteDatabase) {
                                 super.onCreate(db)
-                                dbInit(context, getInstance(context))
+
+                                // Initializes Database with default data set in the IOThread
+                                ioThread {
+                                    dbInit(context)
+                                }
+
                             }
 
                         })
@@ -56,7 +62,7 @@ abstract class TranslationDB : RoomDatabase() {
         /*
         Prepoluates the database when created through a callback
          */
-        private fun dbInit(context: Context, db: TranslationDB) {
+        private fun dbInit(context: Context) {
             val data = context.resources.getStringArray(R.array.translations)
 
 
@@ -68,7 +74,7 @@ abstract class TranslationDB : RoomDatabase() {
                 translation.wordES = translationData.get(1)
                 translation.info = translationData.get(2)
 
-                db.translationDBDao.insert(translation)
+                getInstance(context).translationDBDao.insert(translation)
             }
         }
 

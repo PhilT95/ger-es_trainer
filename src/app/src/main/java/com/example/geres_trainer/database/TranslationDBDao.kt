@@ -13,6 +13,8 @@ interface TranslationDBDao {
     @Insert
     fun insert(translation : Translation)
 
+
+
     @Update
     fun update(translation: Translation)
 
