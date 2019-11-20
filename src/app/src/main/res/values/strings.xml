@@ -1,8 +1,13 @@
 <resources>
     <string name="app_name">German-Spanish Trainer</string>
     <string name="startButton_text">Start Game</string>
-    <string name="addWordButton_text">New Word</string>
+    <string name="addWordButton_text">Add Word</string>
     <string name="viewWordsButton_text">View Words</string>
     <string name="clearDatabaseButton_text">Clear Database</string>
     <string name="dataBaseCleared_text">Database has been wiped.</string>
+    <string name="gerTextField_text">German Translation</string>
+    <string name="esTextField_text">Spanish Translation</string>
+    <string name="info_text">Addition Info</string>
+    <string name="translationAddedSuccess_message">The translation has been added.</string>
+    <string name="translationAddedFail_message">This translation already exists!</string>
 </resources>

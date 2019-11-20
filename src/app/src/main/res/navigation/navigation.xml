@@ -23,6 +23,9 @@
         <action
             android:id="@+id/action_titleFragment_to_viewFragment"
             app:destination="@id/viewFragment" />
+        <action
+            android:id="@+id/action_titleFragment_to_addFragment"
+            app:destination="@id/addFragment" />
     </fragment>
     <fragment
         android:id="@+id/viewFragment"
@@ -30,6 +33,14 @@
         android:label="ViewFragment" >
         <action
             android:id="@+id/action_viewFragment_to_titleFragment"
+            app:destination="@id/titleFragment" />
+    </fragment>
+    <fragment
+        android:id="@+id/addFragment"
+        android:name="com.example.geres_trainer.screens.add.AddFragment"
+        android:label="AddFragment" >
+        <action
+            android:id="@+id/action_addFragment_to_titleFragment"
             app:destination="@id/titleFragment" />
     </fragment>
 </navigation>

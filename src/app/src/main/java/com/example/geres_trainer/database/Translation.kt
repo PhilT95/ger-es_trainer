@@ -2,10 +2,12 @@ package com.example.geres_trainer.database
 
 import androidx.room.ColumnInfo
 import androidx.room.Entity
+import androidx.room.Index
 import androidx.room.PrimaryKey
 
 
-@Entity(tableName = "word_translation_table")
+@Entity(tableName = "word_translation_table",
+    indices = [Index(value = ["word_ger", "word_es"], unique = true)])
 data class Translation(
 
     @PrimaryKey(autoGenerate = true)

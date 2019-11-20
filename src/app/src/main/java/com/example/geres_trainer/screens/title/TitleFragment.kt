@@ -51,6 +51,10 @@ class TitleFragment : Fragment () {
             this.findNavController().navigate(R.id.action_titleFragment_to_viewFragment)
         }
 
+        binding.newWordButton.setOnClickListener {
+            this.findNavController().navigate(R.id.action_titleFragment_to_addFragment)
+        }
+
 
 
 

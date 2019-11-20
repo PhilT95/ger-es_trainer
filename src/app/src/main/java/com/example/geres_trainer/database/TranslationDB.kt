@@ -12,7 +12,7 @@ import com.example.geres_trainer.splitTranslation
 import java.security.AccessControlContext
 
 
-@Database(entities = [Translation::class], version = 1, exportSchema = false)
+@Database(entities = [Translation::class], version = 2, exportSchema = false)
 abstract class TranslationDB : RoomDatabase() {
 
     abstract val translationDBDao: TranslationDBDao
