@@ -1,0 +1,11 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <array name="translations">
+        <item>"Frage;pregunta;la pregunta (f.)"</item>
+        <item>"umgehen;salir;!yo salgo! , tu salges, ... "</item>
+        <item>"kommen;venir;!yo veng!, tu vienes, ... ,!tu venimos!"</item>
+        <item>"übersetzen;traducir;yo traduco, tu traduces,..."</item>
+        <item>"Flug;vuelo;el vuelo (m.)"</item>
+        <item>"haben;haber;yo he, tu has, ello hemos,...."</item>
+    </array>
+</resources>
