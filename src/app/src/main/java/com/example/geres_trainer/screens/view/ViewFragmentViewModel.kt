@@ -28,8 +28,20 @@ class ViewFragmentViewModel (
 
     private val translations = database.getAllTranslations()
 
-    val translationsString = Transformations.map(translations) {translations ->
+    val lists = Transformations.map(translations) { translations ->
         (formatTranslationsForView(translations))
+    }
+
+    val gerList = Transformations.map(lists) {lists ->
+        lists.get(0)
+    }
+
+    val esList = Transformations.map(lists) {lists ->
+        lists.get(1)
+    }
+
+    val infoList = Transformations.map(lists) {lists ->
+        lists.get(2)
     }
 
 
@@ -42,6 +54,8 @@ class ViewFragmentViewModel (
     fun doneNavigating() {
         _navigateToTitleFragment.value = null
     }
+
+
 
 
 }

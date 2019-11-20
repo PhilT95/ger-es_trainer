@@ -31,34 +31,29 @@ fun ioThread(f: () -> Unit) {
 
 
 
-fun formatTranslationsForView(translations : List<Translation>) : Spanned {
+fun formatTranslationsForView(translations : List<Translation>) : List<String> {
+    var gerList = StringBuilder()
+    var esList = StringBuilder()
+    var info = StringBuilder()
 
-    var sb = StringBuilder()
-    sb.apply {
-        append("<table style=\"width:100%\">")
-            append("<tr>")
-                append("<th>German</th>")
-                append("<th>Spanish</th>")
-                append("<th>Info</th>")
-            append("</tr>")
-       translations.forEach {
-           append("<tr>")
-            append("<td>${it.wordGer}</td>")
-            append("<td>${it.wordES}</td>")
-            append("<td>${it.info}</td>")
-           append("</tr>")
-       }
-        append("</table>")
+    gerList.append("German\n")
+    esList.append("Spanish\n")
+    info.append("Info\n")
+
+    for (value in translations) {
+        gerList.append("${value.wordGer}\n")
+        esList.append("${value.wordES}\n")
+        info.append("${value.info}\n")
     }
 
-    if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.N) {
-        return Html.fromHtml(sb.toString(), Html.FROM_HTML_MODE_LEGACY)
-    } else {
-        return HtmlCompat.fromHtml(sb.toString(), HtmlCompat.FROM_HTML_MODE_LEGACY)
-    }
+    return listOf(gerList.toString(),esList.toString(),info.toString())
+
+
 
 
 }
+
+
 
 
 fun populateDatabase(database : TranslationDBDao, res: Resources) {
