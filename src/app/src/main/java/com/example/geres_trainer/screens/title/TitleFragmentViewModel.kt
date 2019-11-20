@@ -7,6 +7,7 @@ import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import com.example.geres_trainer.database.Translation
 import com.example.geres_trainer.database.TranslationDBDao
+import com.example.geres_trainer.populateDatabase
 import com.example.geres_trainer.splitTranslation
 import kotlinx.coroutines.*
 
@@ -34,14 +35,17 @@ class TitleFragmentViewModel (
 
 
 
+    fun doneShowingSnackbar () {
+        _showSnackBarEvent.value = false
+    }
+
+
+
+
 
     private suspend fun getTranslationFromDatabase(string : String) : Translation? {
         return withContext(Dispatchers.IO) {
-            var new = Translation()
-            new.wordGer = "Hallo"
-            new.wordES = "Hola"
-            database.insert(new)
-            var translation = database.getMostRecentWord()
+            var translation = database.getTranslatioByGer(string)
             translation
         }
     }
@@ -49,6 +53,8 @@ class TitleFragmentViewModel (
     private suspend fun clear() {
         withContext(Dispatchers.IO) {
             database.clear()
+            val res = getApplication<Application>().applicationContext.resources
+            populateDatabase(database, res)
         }
     }
 
@@ -77,7 +83,15 @@ class TitleFragmentViewModel (
     fun onClear() {
         uiScope.launch {
             clear()
+
         }
+
+        _showSnackBarEvent.value = true
+    }
+
+    override fun onCleared() {
+        super.onCleared()
+        viewModelJob.cancel()
     }
 
 

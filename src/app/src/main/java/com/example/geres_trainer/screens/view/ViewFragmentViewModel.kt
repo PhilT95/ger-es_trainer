@@ -1,10 +1,7 @@
 package com.example.geres_trainer.screens.view
 
 import android.app.Application
-import androidx.lifecycle.AndroidViewModel
-import androidx.lifecycle.LiveData
-import androidx.lifecycle.MutableLiveData
-import androidx.lifecycle.ViewModel
+import androidx.lifecycle.*
 import com.example.geres_trainer.database.Translation
 import com.example.geres_trainer.database.TranslationDBDao
 import com.example.geres_trainer.formatTranslationsForView
@@ -28,7 +25,17 @@ class ViewFragmentViewModel (
 
 
 
-    val translationString = formatTranslationsForView(database.getAllTranslations().value)
+
+    private val translations = database.getAllTranslations()
+
+    val translationsString = Transformations.map(translations) {translations ->
+        (formatTranslationsForView(translations))
+    }
+
+
+
+
+
 
 
 

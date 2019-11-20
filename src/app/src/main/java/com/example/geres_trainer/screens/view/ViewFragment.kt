@@ -37,11 +37,6 @@ class ViewFragment : Fragment () {
 
 
 
-        /*viewFragmentViewModel.translationData.observe(this, Observer {
-            viewFragmentViewModel.showTranslations()
-            translationList.append(viewFragmentViewModel.dataString)
-        })*/
-
         binding.setLifecycleOwner(this)
 
 

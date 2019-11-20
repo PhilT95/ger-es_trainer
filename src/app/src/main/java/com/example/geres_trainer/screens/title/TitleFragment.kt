@@ -51,15 +51,18 @@ class TitleFragment : Fragment () {
             this.findNavController().navigate(R.id.action_titleFragment_to_viewFragment)
         }
 
+
+
+
         titleFragmentViewModel.showSnackbarEvent.observe(this, Observer {
             if (it == true) {
                 Snackbar.make(
                     activity!!.findViewById(android.R.id.content),
-                    titleFragmentViewModel.searchedTranslation.value.toString(),
+                    getString(R.string.dataBaseCleared_text),
                     Snackbar.LENGTH_SHORT
                 ).show()
 
-
+                titleFragmentViewModel.doneShowingSnackbar()
 
             }
         })
