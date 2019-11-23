@@ -70,6 +70,10 @@ fun populateDatabase(database : TranslationDBDao, res: Resources) {
 
         database.insert(translation)
     }
+}
 
 
+fun formatTimeLeft(timeLeftMilli : Long) : String {
+    val seconds = timeLeftMilli/1000
+    return seconds.toString()
 }

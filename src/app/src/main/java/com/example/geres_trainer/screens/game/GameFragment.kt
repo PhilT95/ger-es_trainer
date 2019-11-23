@@ -8,6 +8,7 @@ import androidx.databinding.DataBindingUtil
 import androidx.fragment.app.Fragment
 import androidx.lifecycle.ViewModelProviders
 import com.example.geres_trainer.R
+import com.example.geres_trainer.database.TranslationDB
 import com.example.geres_trainer.databinding.GameFragmentBinding
 
 class GameFragment : Fragment() {
@@ -23,16 +24,24 @@ class GameFragment : Fragment() {
 
         val application = requireNotNull(this.activity).application
 
-        val viewModelFactory = GameFragmentViewModelFactory(application)
+        val dataSource = TranslationDB.getInstance(application).translationDBDao
+
+        val viewModelFactory = GameFragmentViewModelFactory(dataSource, application)
 
         val gameFragmentViewModel =
             ViewModelProviders.of(
                 this, viewModelFactory).get(GameFragmentViewModel::class.java)
 
 
-        binding.gamerFragmentViewModel = gameFragmentViewModel
+        binding.gameFragmentViewModel = gameFragmentViewModel
+
+        binding.comfirmAnswerButton.setOnClickListener {
+            gameFragmentViewModel.onConfirmClick(binding.answerTextField.text.toString())
+        }
 
         binding.setLifecycleOwner(this)
+
+        gameFragmentViewModel.createRandomGame()
 
         return binding.root
 
