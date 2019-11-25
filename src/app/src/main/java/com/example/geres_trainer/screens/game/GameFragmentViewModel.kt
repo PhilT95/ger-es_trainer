@@ -9,50 +9,70 @@ import androidx.lifecycle.Transformations
 import com.example.geres_trainer.R
 import com.example.geres_trainer.database.Translation
 import com.example.geres_trainer.database.TranslationDBDao
-import com.example.geres_trainer.formatTimeLeft
-import kotlinx.coroutines.CoroutineScope
-import kotlinx.coroutines.Dispatchers
-import kotlinx.coroutines.Job
+import com.example.geres_trainer.randomizeList
+import kotlinx.coroutines.*
+
+
+
+
 
 class GameFragmentViewModel (
-    database: TranslationDBDao,
+    val database: TranslationDBDao,
     application: Application) : AndroidViewModel(application) {
 
-    private val viewmodelJob = Job()
-    private val uiScope = CoroutineScope(Dispatchers.Main + viewmodelJob)
-    private val translations = database.getAllTranslations()
+    private val viewModelJob = Job()
+    private val uiScope = CoroutineScope(Dispatchers.Main + viewModelJob)
 
     private var _timerIsFinished = MutableLiveData<Boolean>()
     val timerIsFinished : LiveData<Boolean>
         get() = _timerIsFinished
 
+    private var _listIsFilled = MutableLiveData<Boolean>()
+    val listIsFilled : LiveData<Boolean>
+        get() = _listIsFilled
 
 
-    private val gameSize = R.integer.defaultGameSize
-    private val randomList = createRandomList()
+
+
+
+    private val gameSize = application.resources.getInteger(R.integer.defaultGameSize)
+    private val gameTime = application.resources.getInteger(R.integer.defaultTimeMilli)
+    private var randomList : List<Translation> = emptyList()
 
     private var wordCounter : Int = 0
     private var answerWord : String = ""
 
     private var points : Int = 0
 
-    var questionWord : String = ""
-    var timerText : String = (R.integer.defaultTimeMilli/1000).toString()
-    var pointsText : String = ""
+    private var _questionWord = MutableLiveData<String>()
+    val questionWord : LiveData<String>
+        get() = _questionWord
+
+    private var _timerText = MutableLiveData<String>()
+    val timerText : LiveData<String>
+        get() = _timerText
+
+    private var _pointsText = MutableLiveData<String>()
+    val pointsText : LiveData<String>
+        get() = _pointsText
 
 
-    val timer = object : CountDownTimer(R.integer.defaultTimeMilli.toLong(), 1000) {
 
+
+
+
+    private val timer = object : CountDownTimer(gameTime.toLong(), 1000) {
         override fun onTick(millisUntilFinished: Long) {
-            timerText = formatTimeLeft(millisUntilFinished)
+            _timerText.value = (millisUntilFinished/1000).toString()
         }
 
         override fun onFinish() {
-            _timerIsFinished.value = true
+           _timerIsFinished.value = true
         }
-
-
     }
+
+
+
 
 
 
@@ -66,6 +86,7 @@ class GameFragmentViewModel (
                 newWord()
             }
             else {
+                updatePointText()
                 newWord()
             }
         }
@@ -82,39 +103,53 @@ class GameFragmentViewModel (
     }
 
     private fun updatePointText () {
-        pointsText = points.toString() + "\t/\t" + gameSize
+        _pointsText.value = points.toString() + "\t/\t" + gameSize.toString()
     }
 
 
 
 
-    fun createRandomGame () {
+    fun initRandomGame () {
         _timerIsFinished.value = false
-        newWord()
+        _listIsFilled.value = false
+        updatePointText()
+        onInit()
+
+    }
+
+    private suspend fun initRandomList () {
+        var list = emptyList<Translation>()
+        withContext(Dispatchers.IO) {
+            list = database.getAllTranslationsNotLive().shuffled()
+        }
+        randomList = list
+        _listIsFilled.value = true
+    }
+
+    private fun onInit() {
+        uiScope.launch {
+            initRandomList()
+        }
+    }
+
+    fun startGame() {
         timer.start()
-
-
+        newWord()
     }
 
 
     private fun newWord () {
-        questionWord = randomList.get(wordCounter).wordGer
+        _questionWord.value = randomList.get(wordCounter).wordGer
         answerWord = randomList.get(wordCounter).wordES
         wordCounter++
     }
 
-    private fun createRandomList() : List<Translation> {
 
-        val shuffledList = translations.value?.shuffled()
 
-        var list : List<Translation> = emptyList()
 
-        for (x in 0..gameSize) {
-            list.plus(shuffledList?.get(1))
-        }
 
-        return list
-    }
+
+
 
     private fun gameFinish() {
 

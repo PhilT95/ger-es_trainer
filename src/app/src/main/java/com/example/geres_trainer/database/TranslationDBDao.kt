@@ -29,4 +29,7 @@ interface TranslationDBDao {
 
     @Query("SELECT * from word_translation_table")
     fun getAllTranslations() : LiveData<List<Translation>>
+
+    @Query("SELECT * from word_translation_table")
+    fun getAllTranslationsNotLive() : List<Translation>
 }

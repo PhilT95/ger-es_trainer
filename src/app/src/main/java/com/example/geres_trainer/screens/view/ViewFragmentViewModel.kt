@@ -16,7 +16,7 @@ class ViewFragmentViewModel (
     //private val uiScope = CoroutineScope(Dispatchers.Main + viewModelJob)
 
 
-    private val _navigateToTitleFragment = MutableLiveData<Boolean?>()
+    //private val _navigateToTitleFragment = MutableLiveData<Boolean?>()
 
 
 
