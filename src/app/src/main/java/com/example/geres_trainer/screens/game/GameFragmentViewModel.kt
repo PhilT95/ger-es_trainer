@@ -103,7 +103,7 @@ class GameFragmentViewModel (
     }
 
     private fun updatePointText () {
-        _pointsText.value = points.toString() + "\t/\t" + gameSize.toString()
+        _pointsText.value = points.toString() + "\t/" + "\t" + gameSize.toString()
     }
 
 

@@ -1,9 +1,11 @@
 package com.example.geres_trainer.screens.game
 
+import android.content.SharedPreferences
 import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import android.view.inputmethod.EditorInfo
 import androidx.databinding.DataBindingUtil
 import androidx.fragment.app.Fragment
 import androidx.lifecycle.Observer
@@ -42,6 +44,7 @@ class GameFragment : Fragment() {
         binding.comfirmAnswerButton.setOnClickListener {
             gameFragmentViewModel.onConfirmClick(binding.answerTextField.text.toString())
             binding.answerTextField.text.clear()
+            binding.answerTextField.onEditorAction(EditorInfo.IME_ACTION_DONE)
         }
 
         gameFragmentViewModel.listIsFilled.observe(this, Observer {
