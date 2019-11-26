@@ -2,10 +2,7 @@ package com.example.geres_trainer.screens.game
 
 import android.app.Application
 import android.os.CountDownTimer
-import androidx.lifecycle.AndroidViewModel
-import androidx.lifecycle.LiveData
-import androidx.lifecycle.MutableLiveData
-import androidx.lifecycle.Transformations
+import androidx.lifecycle.*
 import com.example.geres_trainer.R
 import com.example.geres_trainer.database.Translation
 import com.example.geres_trainer.database.TranslationDBDao
@@ -17,11 +14,14 @@ import kotlinx.coroutines.*
 
 
 class GameFragmentViewModel (
+    val lifecycle: Lifecycle,
     val database: TranslationDBDao,
-    application: Application) : AndroidViewModel(application) {
+    application: Application) : AndroidViewModel(application), LifecycleObserver {
+
 
     private val viewModelJob = Job()
     private val uiScope = CoroutineScope(Dispatchers.Main + viewModelJob)
+
 
 
     private var _listIsFilled = MutableLiveData<Boolean>()
@@ -170,4 +170,33 @@ class GameFragmentViewModel (
     private fun gameFinish() {
         _gameIsDone.value = true
     }
+
+    override fun onCleared() {
+        super.onCleared()
+        viewModelJob.cancel()
+
+    }
+
+
+    @OnLifecycleEvent(Lifecycle.Event.ON_STOP)
+    fun stopTimer(){
+        timer.cancel()
+    }
+
+    @OnLifecycleEvent(Lifecycle.Event.ON_RESUME)
+    fun resumeTimer(){
+        timer.start()
+    }
+
+
+
+
+
+
+
+
+
+
+
 }
+

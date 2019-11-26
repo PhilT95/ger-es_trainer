@@ -8,6 +8,8 @@ import android.view.ViewGroup
 import android.view.inputmethod.EditorInfo
 import androidx.databinding.DataBindingUtil
 import androidx.fragment.app.Fragment
+import androidx.fragment.app.viewModels
+import androidx.lifecycle.LifecycleOwner
 import androidx.lifecycle.Observer
 import androidx.lifecycle.ViewModelProviders
 import androidx.navigation.fragment.findNavController
@@ -32,7 +34,7 @@ class GameFragment : Fragment() {
 
         val dataSource = TranslationDB.getInstance(application).translationDBDao
 
-        val viewModelFactory = GameFragmentViewModelFactory(dataSource, application)
+        val viewModelFactory = GameFragmentViewModelFactory(lifecycle, dataSource, application)
 
         val gameFragmentViewModel =
             ViewModelProviders.of(
@@ -67,7 +69,7 @@ class GameFragment : Fragment() {
                     activity!!.findViewById(android.R.id.content),
                     getString(R.string.wordCorrectSnackBar_text),
                     Snackbar.LENGTH_SHORT)
-                snackbar.view.setBackgroundColor(resources.getColor(R.color.colorPrimary))
+                snackbar.view.setBackgroundColor(application.getColor(R.color.colorCorrectWord))
                 snackbar.show()
 
                 gameFragmentViewModel.doneShowCorrectSnackBar()
@@ -75,7 +77,23 @@ class GameFragment : Fragment() {
             }
         })
 
+        gameFragmentViewModel.showSnackBarFalse.observe(this, Observer {
+            if(it == true) {
+                val snackbar = Snackbar.make(
+                    activity!!.findViewById(android.R.id.content),
+                    getString(R.string.wordFalseSnackBar_text) + gameFragmentViewModel.answerWord,
+                    Snackbar.LENGTH_SHORT
+                )
+                snackbar.view.setBackgroundColor(application.getColor(R.color.colorFalseWord))
+                snackbar.show()
+
+                gameFragmentViewModel.doneShowFalseSnackBar()
+            }
+        })
+
         gameFragmentViewModel.initRandomGame()
+
+        lifecycle.addObserver(gameFragmentViewModel)
 
 
         binding.setLifecycleOwner(this)
@@ -83,9 +101,13 @@ class GameFragment : Fragment() {
 
 
 
+
+
         return binding.root
 
     }
+
+
 
 
 

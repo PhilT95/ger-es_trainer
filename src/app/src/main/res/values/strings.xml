@@ -14,4 +14,5 @@
     <string name="defaultTextView_text">Word</string>
     <string name="confirmAnswerButton_text">Confirm Answer</string>
     <string name="wordCorrectSnackBar_text">Your answer was correct!</string>
+    <string name="wordFalseSnackBar_text">Wrong answer! The correct word is </string>
 </resources>
