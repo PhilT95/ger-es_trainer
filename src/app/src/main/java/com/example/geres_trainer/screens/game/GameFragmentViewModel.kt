@@ -23,14 +23,22 @@ class GameFragmentViewModel (
     private val viewModelJob = Job()
     private val uiScope = CoroutineScope(Dispatchers.Main + viewModelJob)
 
-    private var _timerIsFinished = MutableLiveData<Boolean>()
-    val timerIsFinished : LiveData<Boolean>
-        get() = _timerIsFinished
 
     private var _listIsFilled = MutableLiveData<Boolean>()
     val listIsFilled : LiveData<Boolean>
         get() = _listIsFilled
 
+    private var _gameIsDone = MutableLiveData<Boolean>()
+    val gameIsDone : LiveData<Boolean>
+        get() = _gameIsDone
+
+    private var _showSnackBarCorrect = MutableLiveData<Boolean>()
+    val showSnackBarCorrect : LiveData<Boolean>
+        get() = _showSnackBarCorrect
+
+    private var _showSnackBarFalse = MutableLiveData<Boolean>()
+    val showSnackBarFalse : LiveData<Boolean>
+        get() = _showSnackBarFalse
 
 
 
@@ -40,7 +48,8 @@ class GameFragmentViewModel (
     private var randomList : List<Translation> = emptyList()
 
     private var wordCounter : Int = 0
-    private var answerWord : String = ""
+
+    var answerWord : String = ""
 
     private var points : Int = 0
 
@@ -67,7 +76,7 @@ class GameFragmentViewModel (
         }
 
         override fun onFinish() {
-           _timerIsFinished.value = true
+           gameFinish()
         }
     }
 
@@ -83,10 +92,12 @@ class GameFragmentViewModel (
             if(answerWord == userAnswer) {
                 points++
                 updatePointText()
+                _showSnackBarCorrect.value = true
                 newWord()
             }
             else {
                 updatePointText()
+                _showSnackBarFalse.value = true
                 newWord()
             }
         }
@@ -110,7 +121,6 @@ class GameFragmentViewModel (
 
 
     fun initRandomGame () {
-        _timerIsFinished.value = false
         _listIsFilled.value = false
         updatePointText()
         onInit()
@@ -146,12 +156,18 @@ class GameFragmentViewModel (
 
 
 
+    fun doneShowCorrectSnackBar() {
+        _showSnackBarCorrect.value = false
+    }
 
+    fun doneShowFalseSnackBar() {
+        _showSnackBarFalse.value = false
+    }
 
 
 
 
     private fun gameFinish() {
-
+        _gameIsDone.value = true
     }
 }

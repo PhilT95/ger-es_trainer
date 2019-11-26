@@ -10,9 +10,12 @@ import androidx.databinding.DataBindingUtil
 import androidx.fragment.app.Fragment
 import androidx.lifecycle.Observer
 import androidx.lifecycle.ViewModelProviders
+import androidx.navigation.fragment.findNavController
 import com.example.geres_trainer.R
 import com.example.geres_trainer.database.TranslationDB
 import com.example.geres_trainer.databinding.GameFragmentBinding
+import com.google.android.material.snackbar.Snackbar
+import kotlinx.android.synthetic.main.activity_main.*
 
 class GameFragment : Fragment() {
 
@@ -47,11 +50,29 @@ class GameFragment : Fragment() {
             binding.answerTextField.onEditorAction(EditorInfo.IME_ACTION_DONE)
         }
 
+        gameFragmentViewModel.gameIsDone.observe(this, Observer {
+            this.findNavController().navigate(R.id.action_gameFragment_to_endFragment)
+        })
+
         gameFragmentViewModel.listIsFilled.observe(this, Observer {
             if(gameFragmentViewModel.listIsFilled.value == true) {
                 gameFragmentViewModel.startGame()
             }
 
+        })
+
+        gameFragmentViewModel.showSnackBarCorrect.observe(this, Observer {
+            if (it == true) {
+                val snackbar = Snackbar.make(
+                    activity!!.findViewById(android.R.id.content),
+                    getString(R.string.wordCorrectSnackBar_text),
+                    Snackbar.LENGTH_SHORT)
+                snackbar.view.setBackgroundColor(resources.getColor(R.color.colorPrimary))
+                snackbar.show()
+
+                gameFragmentViewModel.doneShowCorrectSnackBar()
+
+            }
         })
 
         gameFragmentViewModel.initRandomGame()

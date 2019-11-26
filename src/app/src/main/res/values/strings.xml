@@ -13,4 +13,5 @@
     <string name="answerTextField_text">Type your answer here</string>
     <string name="defaultTextView_text">Word</string>
     <string name="confirmAnswerButton_text">Confirm Answer</string>
+    <string name="wordCorrectSnackBar_text">Your answer was correct!</string>
 </resources>
