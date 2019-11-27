@@ -11,15 +11,13 @@ class ViewFragmentViewModel (
     val database: TranslationDBDao) : ViewModel() {
 
 
-    private val viewModelJob = Job()
+    //private val viewModelJob = Job()
 
-    private val uiScope = CoroutineScope(Dispatchers.Main + viewModelJob)
+    //private val uiScope = CoroutineScope(Dispatchers.Main + viewModelJob)
 
 
-    private val _navigateToTitleFragment = MutableLiveData<Boolean?>()
+    //private val _navigateToTitleFragment = MutableLiveData<Boolean?>()
 
-    val navigateToTitleFragment: LiveData<Boolean?>
-        get() = _navigateToTitleFragment
 
 
 
@@ -51,9 +49,6 @@ class ViewFragmentViewModel (
 
 
 
-    fun doneNavigating() {
-        _navigateToTitleFragment.value = null
-    }
 
 
 

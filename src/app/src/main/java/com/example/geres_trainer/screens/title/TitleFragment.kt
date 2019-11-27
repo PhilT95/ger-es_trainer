@@ -43,8 +43,6 @@ class TitleFragment : Fragment () {
         binding.playGameButton.setOnClickListener {
             this.findNavController().navigate(R.id.action_titleFragment_to_gameFragment)
 
-
-
         }
 
         binding.viewWordsButton.setOnClickListener {

@@ -10,4 +10,9 @@
     <string name="info_text">Addition Info</string>
     <string name="translationAddedSuccess_message">The translation has been added.</string>
     <string name="translationAddedFail_message">This translation already exists!</string>
+    <string name="answerTextField_text">Type your answer here</string>
+    <string name="defaultTextView_text">Word</string>
+    <string name="confirmAnswerButton_text">Confirm Answer</string>
+    <string name="wordCorrectSnackBar_text">Your answer was correct!</string>
+    <string name="wordFalseSnackBar_text">Wrong answer! The correct word is </string>
 </resources>

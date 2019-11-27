@@ -70,6 +70,10 @@ fun populateDatabase(database : TranslationDBDao, res: Resources) {
 
         database.insert(translation)
     }
+}
 
+fun randomizeList(list : List<Translation>) : List<Translation> {
+    var randomList = emptyList<Translation>()
 
+    return randomList
 }
