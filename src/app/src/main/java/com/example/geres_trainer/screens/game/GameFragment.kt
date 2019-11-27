@@ -81,8 +81,8 @@ class GameFragment : Fragment() {
             if(it == true) {
                 val snackbar = Snackbar.make(
                     activity!!.findViewById(android.R.id.content),
-                    getString(R.string.wordFalseSnackBar_text) + gameFragmentViewModel.answerWord,
-                    Snackbar.LENGTH_SHORT
+                    getString(R.string.wordFalseSnackBar_text) + "\t" + gameFragmentViewModel.answerWord,
+                    Snackbar.LENGTH_LONG
                 )
                 snackbar.view.setBackgroundColor(application.getColor(R.color.colorFalseWord))
                 snackbar.show()

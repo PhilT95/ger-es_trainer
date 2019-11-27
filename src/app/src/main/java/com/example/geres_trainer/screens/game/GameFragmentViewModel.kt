@@ -7,10 +7,9 @@ import com.example.geres_trainer.R
 import com.example.geres_trainer.database.Translation
 import com.example.geres_trainer.database.TranslationDBDao
 import com.example.geres_trainer.randomizeList
+import com.example.geres_trainer.screens.CountDownTimerPausable
 import kotlinx.coroutines.*
-
-
-
+import java.util.*
 
 
 class GameFragmentViewModel (
@@ -44,7 +43,9 @@ class GameFragmentViewModel (
 
 
     private val gameSize = application.resources.getInteger(R.integer.defaultGameSize)
-    private val gameTime = application.resources.getInteger(R.integer.defaultTimeMilli)
+    private val gameTimeDefault = application.resources.getInteger(R.integer.defaultTimeMilli)
+    private var gameTime : Long = gameTimeDefault.toLong()
+
     private var randomList : List<Translation> = emptyList()
 
     private var wordCounter : Int = 0
@@ -70,15 +71,22 @@ class GameFragmentViewModel (
 
 
 
-    private val timer = object : CountDownTimer(gameTime.toLong(), 1000) {
+    private val timer = object : CountDownTimerPausable(gameTime.toLong(), 1000) {
         override fun onTick(millisUntilFinished: Long) {
             _timerText.value = (millisUntilFinished/1000).toString()
+
         }
+
 
         override fun onFinish() {
            gameFinish()
         }
     }
+
+
+
+
+
 
 
 
@@ -109,6 +117,7 @@ class GameFragmentViewModel (
             gameFinish()
 
         }
+
 
 
     }
@@ -180,11 +189,13 @@ class GameFragmentViewModel (
 
     @OnLifecycleEvent(Lifecycle.Event.ON_STOP)
     fun stopTimer(){
-        timer.cancel()
+        timer.pause()
+
     }
 
     @OnLifecycleEvent(Lifecycle.Event.ON_RESUME)
     fun resumeTimer(){
+
         timer.start()
     }
 
