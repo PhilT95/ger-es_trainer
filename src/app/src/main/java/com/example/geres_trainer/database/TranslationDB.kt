@@ -1,15 +1,13 @@
 package com.example.geres_trainer.database
 
 import android.content.Context
-import android.content.res.Resources
 import androidx.room.Database
 import androidx.room.Room
 import androidx.room.RoomDatabase
 import androidx.sqlite.db.SupportSQLiteDatabase
 import com.example.geres_trainer.R
-import com.example.geres_trainer.ioThread
-import com.example.geres_trainer.splitTranslation
-import java.security.AccessControlContext
+import com.example.geres_trainer.util.ioThread
+import com.example.geres_trainer.util.splitTranslation
 
 
 @Database(entities = [Translation::class], version = 2, exportSchema = false)
@@ -67,7 +65,8 @@ abstract class TranslationDB : RoomDatabase() {
 
 
             for (value in data) {
-                val translationData = splitTranslation(value)
+                val translationData =
+                    splitTranslation(value)
 
                 var translation = Translation()
                 translation.wordGer = translationData.get(0)

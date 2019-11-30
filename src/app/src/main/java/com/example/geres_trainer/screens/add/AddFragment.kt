@@ -72,11 +72,13 @@ class AddFragment :  Fragment () {
 
         addFragmentViewModel.showSnackbarEventSuccess.observe(this, Observer {
             if(it == true) {
-                Snackbar.make(
+                val snackbar = Snackbar.make(
                     activity!!.findViewById(android.R.id.content),
                     getString(R.string.translationAddedSuccess_message),
-                    Snackbar.LENGTH_SHORT
-                ).show()
+                    Snackbar.LENGTH_SHORT)
+                snackbar.view.setBackgroundColor(application.getColor(R.color.colorCorrectWord))
+                snackbar.show()
+
 
                 addFragmentViewModel.doneShowingSnackbarSuccess()
                 clearTextFields()
@@ -86,15 +88,30 @@ class AddFragment :  Fragment () {
 
         addFragmentViewModel.showSnackbarEventFail.observe(this, Observer {
             if(it == true) {
-                Snackbar.make(
+                val snackbar = Snackbar.make(
                     activity!!.findViewById(android.R.id.content),
                     getString(R.string.translationAddedFail_message),
-                    Snackbar.LENGTH_SHORT
-                ).show()
+                    Snackbar.LENGTH_SHORT)
+                snackbar.view.setBackgroundColor(application.getColor(R.color.colorFalseWord))
+                snackbar.show()
 
                 addFragmentViewModel.doneShowingSnackbarFail()
 
             }
+        })
+
+        addFragmentViewModel.showSnackBarEventIllegalSymbol.observe(this, Observer {
+            if(it == true){
+                val snackbar = Snackbar.make(
+                    activity!!.findViewById(android.R.id.content),
+                    getString(R.string.translationAddedIllegalSymbol_message),
+                    Snackbar.LENGTH_SHORT)
+                snackbar.view.setBackgroundColor(application.getColor(R.color.colorFalseWord))
+                snackbar.show()
+
+                addFragmentViewModel.doneShowingSnackbarIllegalSymbol()
+            }
+
         })
 
         binding.addFragmentViewModel = addFragmentViewModel

@@ -1,12 +1,10 @@
 package com.example.geres_trainer.screens.game
 
 import android.app.Application
-import android.os.CountDownTimer
 import androidx.lifecycle.*
 import com.example.geres_trainer.R
 import com.example.geres_trainer.database.Translation
 import com.example.geres_trainer.database.TranslationDBDao
-import com.example.geres_trainer.randomizeList
 import com.example.geres_trainer.screens.CountDownTimerPausable
 import kotlinx.coroutines.*
 import java.util.*
@@ -51,8 +49,8 @@ class GameFragmentViewModel (
     private var wordCounter : Int = 0
 
     var answerWord : String = ""
-
-    private var points : Int = 0
+    var points : Int = 0
+    var wrongTranslations : Queue<Long> = ArrayDeque<Long>()
 
     private var _questionWord = MutableLiveData<String>()
     val questionWord : LiveData<String>
@@ -106,6 +104,7 @@ class GameFragmentViewModel (
             else {
                 updatePointText()
                 _showSnackBarFalse.value = true
+                wrongTranslations.add(randomList.get(wordCounter).translationID)
                 newWord()
             }
         }
@@ -113,7 +112,7 @@ class GameFragmentViewModel (
             if (answerWord == userAnswer) {
                 points++
             }
-
+            wrongTranslations.add(randomList.get(wordCounter).translationID)
             gameFinish()
 
         }
@@ -198,6 +197,7 @@ class GameFragmentViewModel (
 
         timer.start()
     }
+
 
 
 

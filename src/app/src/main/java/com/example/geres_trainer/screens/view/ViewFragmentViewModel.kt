@@ -1,11 +1,8 @@
 package com.example.geres_trainer.screens.view
 
-import android.app.Application
 import androidx.lifecycle.*
-import com.example.geres_trainer.database.Translation
 import com.example.geres_trainer.database.TranslationDBDao
-import com.example.geres_trainer.formatTranslationsForView
-import kotlinx.coroutines.*
+import com.example.geres_trainer.util.formatTranslationsForView
 
 class ViewFragmentViewModel (
     val database: TranslationDBDao) : ViewModel() {

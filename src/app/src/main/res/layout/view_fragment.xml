@@ -29,23 +29,23 @@
 
                 <TextView
                     android:id="@+id/gerWordList"
-                    android:layout_width="wrap_content"
+                    android:layout_width="0dp"
                     android:layout_height="wrap_content"
-                    android:layout_weight="1"
+                    android:layout_weight="0.2"
                     android:text="@{viewFragmentViewModel.gerList}" />
 
                 <TextView
                     android:id="@+id/esWordList"
-                    android:layout_width="wrap_content"
+                    android:layout_width="0dp"
                     android:layout_height="wrap_content"
-                    android:layout_weight="1"
+                    android:layout_weight="0.2"
                     android:text="@{viewFragmentViewModel.esList}" />
 
                 <TextView
                     android:id="@+id/infoList"
-                    android:layout_width="wrap_content"
+                    android:layout_width="0dp"
                     android:layout_height="wrap_content"
-                    android:layout_weight="1"
+                    android:layout_weight="0.6"
                     android:text="@{viewFragmentViewModel.infoList}" />
             </LinearLayout>
         </ScrollView>

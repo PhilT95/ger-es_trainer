@@ -6,6 +6,7 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.view.inputmethod.EditorInfo
+import androidx.core.os.bundleOf
 import androidx.databinding.DataBindingUtil
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.viewModels
@@ -14,10 +15,13 @@ import androidx.lifecycle.Observer
 import androidx.lifecycle.ViewModelProviders
 import androidx.navigation.fragment.findNavController
 import com.example.geres_trainer.R
+import com.example.geres_trainer.database.Translation
 import com.example.geres_trainer.database.TranslationDB
 import com.example.geres_trainer.databinding.GameFragmentBinding
+import com.example.geres_trainer.util.keyToStringEncoder
 import com.google.android.material.snackbar.Snackbar
 import kotlinx.android.synthetic.main.activity_main.*
+import java.util.*
 
 class GameFragment : Fragment() {
 
@@ -41,6 +45,7 @@ class GameFragment : Fragment() {
                 this, viewModelFactory).get(GameFragmentViewModel::class.java)
 
 
+
         binding.gameFragmentViewModel = gameFragmentViewModel
 
 
@@ -53,7 +58,8 @@ class GameFragment : Fragment() {
         }
 
         gameFragmentViewModel.gameIsDone.observe(this, Observer {
-            this.findNavController().navigate(R.id.action_gameFragment_to_endFragment)
+           val bundle : Bundle = bundleOf("keys" to keyToStringEncoder(gameFragmentViewModel.wrongTranslations), "points" to gameFragmentViewModel.points)
+            this.findNavController().navigate(R.id.action_gameFragment_to_endFragment,bundle)
         })
 
         gameFragmentViewModel.listIsFilled.observe(this, Observer {

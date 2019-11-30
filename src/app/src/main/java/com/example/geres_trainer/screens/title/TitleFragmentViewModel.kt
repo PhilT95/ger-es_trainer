@@ -1,14 +1,12 @@
 package com.example.geres_trainer.screens.title
 
 import android.app.Application
-import android.provider.SyncStateContract.Helpers.insert
 import androidx.lifecycle.AndroidViewModel
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import com.example.geres_trainer.database.Translation
 import com.example.geres_trainer.database.TranslationDBDao
-import com.example.geres_trainer.populateDatabase
-import com.example.geres_trainer.splitTranslation
+import com.example.geres_trainer.util.populateDatabase
 import kotlinx.coroutines.*
 
 class TitleFragmentViewModel (

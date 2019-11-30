@@ -33,12 +33,17 @@ class AddFragmentViewModel (
     val canAddTranslation : LiveData<Boolean>
         get() = _canAddTranslation
 
+    private var _showSnackBarEventIllegalSymbol = MutableLiveData<Boolean>()
+    val showSnackBarEventIllegalSymbol : LiveData<Boolean>
+        get() = _showSnackBarEventIllegalSymbol
+
 
 
 
 
     private suspend fun add(gerWord : String, esWord : String, info : String) {
-        var didWork = true
+        var didWork = false
+        var containsIllegalSymbol = false
         withContext(Dispatchers.IO) {
             val newTranslation = Translation()
             newTranslation.wordGer = gerWord
@@ -47,9 +52,18 @@ class AddFragmentViewModel (
 
 
 
+
+
             try {
-                database.insert(newTranslation)
-                didWork = true
+                if(!info.contains(";")){
+                    database.insert(newTranslation)
+                    didWork = true
+                }
+                else {
+                    containsIllegalSymbol = true
+                    didWork = false
+
+                }
             }
             catch (e: SQLiteConstraintException){
                 didWork = false
@@ -59,6 +73,9 @@ class AddFragmentViewModel (
 
         if (didWork) {
             _showSnackBarEventSuccess.value = true
+        }
+        else if (containsIllegalSymbol){
+            _showSnackBarEventIllegalSymbol.value = true
         }
         else {
             _showSnackBarEventFail.value = true
@@ -82,6 +99,10 @@ class AddFragmentViewModel (
 
     fun doneShowingSnackbarFail () {
         _showSnackBarEventFail.value = false
+    }
+
+    fun doneShowingSnackbarIllegalSymbol () {
+        _showSnackBarEventIllegalSymbol.value = false
     }
 
     fun checkState (gerWord : String, esWord : String) {
