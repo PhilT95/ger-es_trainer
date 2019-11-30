@@ -21,6 +21,9 @@ interface TranslationDBDao {
     @Query("DELETE FROM word_translation_table")
     fun clear()
 
+    @Query("Select * FROM word_translation_table WHERE translationID = :key")
+    fun getTranslationByKey(key: Long) : Translation
+
     @Query("SELECT * FROM word_translation_table WHERE word_ger = :string")
     fun getTranslatioByGer(string: String) : Translation
 

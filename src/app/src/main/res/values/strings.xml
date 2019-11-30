@@ -10,9 +10,16 @@
     <string name="info_text">Addition Info</string>
     <string name="translationAddedSuccess_message">The translation has been added.</string>
     <string name="translationAddedFail_message">This translation already exists!</string>
+    <string name="translationAddedIllegalSymbol_message">Your info text contains a illegal symbol!</string>
     <string name="answerTextField_text">Type your answer here</string>
     <string name="defaultTextView_text">Word</string>
     <string name="confirmAnswerButton_text">Confirm Answer</string>
     <string name="wordCorrectSnackBar_text">Your answer was correct!</string>
     <string name="wordFalseSnackBar_text">Wrong answer! The correct word is </string>
+    <string name="gameStatus_text">You answered %1$.2f \%% correctly</string>
+    <string name="playAgainButton_text">Play again</string>
+    <string name="goToTitleButton_text">Go back to menu</string>
+    <string name="gerTitleTextView_text">German</string>
+    <string name="esTitleTextView_text">Spanish</string>
+    <string name="infoTitleTextView_text">Info</string>
 </resources>
