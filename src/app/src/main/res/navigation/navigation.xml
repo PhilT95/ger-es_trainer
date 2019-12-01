@@ -14,7 +14,7 @@
             app:destination="@id/titleFragment" />
         <action
             android:id="@+id/action_gameFragment_to_endFragment"
-            app:destination="@id/endFragment"/>
+            app:destination="@id/endFragment" />
     </fragment>
     <fragment
         android:id="@+id/titleFragment"

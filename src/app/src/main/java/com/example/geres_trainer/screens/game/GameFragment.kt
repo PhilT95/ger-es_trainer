@@ -44,6 +44,8 @@ class GameFragment : Fragment() {
             ViewModelProviders.of(
                 this, viewModelFactory).get(GameFragmentViewModel::class.java)
 
+        var buttonClicked = false
+
 
 
         binding.gameFragmentViewModel = gameFragmentViewModel
@@ -52,9 +54,24 @@ class GameFragment : Fragment() {
 
 
         binding.comfirmAnswerButton.setOnClickListener {
+            buttonClicked = true
             gameFragmentViewModel.onConfirmClick(binding.answerTextField.text.toString())
             binding.answerTextField.text.clear()
-            binding.answerTextField.onEditorAction(EditorInfo.IME_ACTION_DONE)
+            binding.answerTextField.onEditorAction(EditorInfo.IME_ACTION_GO)
+            buttonClicked = false
+        }
+
+        binding.answerTextField.setOnEditorActionListener { v, actionId, event ->
+            return@setOnEditorActionListener when (actionId) {
+                EditorInfo.IME_ACTION_DONE -> {
+                    if (!buttonClicked){
+                        gameFragmentViewModel.onConfirmClick(binding.answerTextField.text.toString())
+                        binding.answerTextField.text.clear()
+                    }
+                    false
+                }
+                else -> true
+            }
         }
 
         gameFragmentViewModel.gameIsDone.observe(this, Observer {
@@ -96,6 +113,8 @@ class GameFragment : Fragment() {
                 gameFragmentViewModel.doneShowFalseSnackBar()
             }
         })
+
+
 
         gameFragmentViewModel.initRandomGame()
 

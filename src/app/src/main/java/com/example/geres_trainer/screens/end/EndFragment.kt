@@ -13,6 +13,7 @@ import com.example.geres_trainer.R
 import com.example.geres_trainer.database.TranslationDB
 import com.example.geres_trainer.databinding.EndFragmentBinding
 import com.example.geres_trainer.util.keyToStringDecoder
+import kotlinx.android.synthetic.main.activity_main.*
 
 class EndFragment () : Fragment() {
 
@@ -32,6 +33,8 @@ class EndFragment () : Fragment() {
         val falseTranslationKeys = keyToStringDecoder(arguments?.get("keys").toString())
         val points = arguments?.get("points").toString().toInt()
         val pointsPercent : Float = (points.toFloat()/resources.getInteger(R.integer.defaultGameSize).toFloat())
+
+
 
 
 
@@ -58,7 +61,7 @@ class EndFragment () : Fragment() {
         }
 
 
-    
+
 
 
 
@@ -69,4 +72,5 @@ class EndFragment () : Fragment() {
 
         return binding.root
     }
+
 }

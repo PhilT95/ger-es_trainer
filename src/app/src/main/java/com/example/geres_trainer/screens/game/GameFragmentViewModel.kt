@@ -40,6 +40,7 @@ class GameFragmentViewModel (
 
 
 
+
     private val gameSize = application.resources.getInteger(R.integer.defaultGameSize)
     private val gameTimeDefault = application.resources.getInteger(R.integer.defaultTimeMilli)
     private var gameTime : Long = gameTimeDefault.toLong()
@@ -64,6 +65,12 @@ class GameFragmentViewModel (
     val pointsText : LiveData<String>
         get() = _pointsText
 
+    private var _gameProgress = MutableLiveData<Int>()
+    val gameProgress : LiveData<Int>
+        get() = _gameProgress
+
+
+
 
 
 
@@ -71,7 +78,7 @@ class GameFragmentViewModel (
 
     private val timer = object : CountDownTimerPausable(gameTime.toLong(), 1000) {
         override fun onTick(millisUntilFinished: Long) {
-            _timerText.value = (millisUntilFinished/1000).toString()
+            _timerText.value = (millisUntilFinished/1000).toString() + " seconds left"
 
         }
 
@@ -94,8 +101,9 @@ class GameFragmentViewModel (
 
 
     fun onConfirmClick (userAnswer : String) {
+        _gameProgress.value = _gameProgress.value!! + 1
         if(wordCounter < gameSize) {
-            if(answerWord == userAnswer) {
+            if(answerWord == userAnswer.replace(" ","")) {
                 points++
                 updatePointText()
                 _showSnackBarCorrect.value = true
@@ -109,10 +117,12 @@ class GameFragmentViewModel (
             }
         }
         else {
-            if (answerWord == userAnswer) {
+            if (answerWord == userAnswer.replace(" ","")) {
                 points++
             }
-            wrongTranslations.add(randomList.get(wordCounter).translationID)
+            else {
+                wrongTranslations.add(randomList.get(wordCounter).translationID)
+            }
             gameFinish()
 
         }
@@ -130,6 +140,7 @@ class GameFragmentViewModel (
 
     fun initRandomGame () {
         _listIsFilled.value = false
+        _gameProgress.value = 0
         updatePointText()
         onInit()
 
@@ -160,6 +171,7 @@ class GameFragmentViewModel (
         _questionWord.value = randomList.get(wordCounter).wordGer
         answerWord = randomList.get(wordCounter).wordES
         wordCounter++
+
     }
 
 

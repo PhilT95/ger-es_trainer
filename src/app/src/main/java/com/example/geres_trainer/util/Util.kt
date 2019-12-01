@@ -70,7 +70,7 @@ fun formatTranslationForEndView(translations : Queue<Translation>) : List<String
         val value = translations.poll()
         gerList.append("${value.wordGer}\n")
         esList.append("${value.wordES}\n")
-        if (value.info.length < 45) {
+        if (value.info.length > 45) {
             val chunked = value.info.chunked(45)
             for (value_chunked in chunked) {
                 info.append("${value_chunked}\n")
@@ -80,7 +80,8 @@ fun formatTranslationForEndView(translations : Queue<Translation>) : List<String
             gerList.append("\n")
             esList.append("\n")
 
-        } else {
+        }
+        else {
             info.append("${value.info}\n")
         }
     }
