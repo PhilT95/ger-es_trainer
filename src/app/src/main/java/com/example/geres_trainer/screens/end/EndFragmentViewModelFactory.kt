@@ -9,12 +9,13 @@ import java.lang.IllegalArgumentException
 
 class EndFragmentViewModelFactory (
     private val dataSource : TranslationDBDao,
+    private val keys: List<Long>,
     private val application: Application) : ViewModelProvider.Factory {
 
     @Suppress("unchecked_cast")
     override fun <T : ViewModel?> create(modelClass: Class<T>): T {
         if(modelClass.isAssignableFrom(EndFragmentViewModel::class.java)){
-            return EndFragmentViewModel(dataSource, application) as T
+            return EndFragmentViewModel(dataSource, keys, application) as T
         }
         throw IllegalArgumentException("Unknown ViewModelClass")
     }

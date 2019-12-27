@@ -5,7 +5,7 @@ import androidx.lifecycle.*
 import com.example.geres_trainer.R
 import com.example.geres_trainer.database.Translation
 import com.example.geres_trainer.database.TranslationDBDao
-import com.example.geres_trainer.screens.CountDownTimerPausable
+import com.example.geres_trainer.util.CountDownTimerPausable
 import kotlinx.coroutines.*
 import java.util.*
 

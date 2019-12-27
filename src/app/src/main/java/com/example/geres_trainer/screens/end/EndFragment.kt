@@ -7,11 +7,13 @@ import android.view.View
 import android.view.ViewGroup
 import androidx.databinding.DataBindingUtil
 import androidx.fragment.app.Fragment
+import androidx.lifecycle.Observer
 import androidx.lifecycle.ViewModelProviders
 import androidx.navigation.fragment.findNavController
 import com.example.geres_trainer.R
 import com.example.geres_trainer.database.TranslationDB
 import com.example.geres_trainer.databinding.EndFragmentBinding
+import com.example.geres_trainer.util.keyToListDecoder
 import com.example.geres_trainer.util.keyToStringDecoder
 import kotlinx.android.synthetic.main.activity_main.*
 
@@ -30,7 +32,6 @@ class EndFragment () : Fragment() {
         val application = requireNotNull(this.activity).application
         val dataSource = TranslationDB.getInstance(application).translationDBDao
 
-        val falseTranslationKeys = keyToStringDecoder(arguments?.get("keys").toString())
         val points = arguments?.get("points").toString().toInt()
         val pointsPercent : Float = (points.toFloat()/resources.getInteger(R.integer.defaultGameSize).toFloat())
 
@@ -38,7 +39,7 @@ class EndFragment () : Fragment() {
 
 
 
-        val viewModelFactory = EndFragmentViewModelFactory(dataSource, application)
+        val viewModelFactory = EndFragmentViewModelFactory(dataSource, keyToListDecoder(arguments?.get("keys").toString()), application)
 
         val endFragmentViewModel =
             ViewModelProviders.of(
@@ -46,11 +47,12 @@ class EndFragment () : Fragment() {
 
         binding.endFragmentViewModel = endFragmentViewModel
 
-        endFragmentViewModel.onGetWrongTranslations(falseTranslationKeys)
 
+        binding.setLifecycleOwner(this)
 
 
         binding.GameStatusTextView.text = getString(R.string.gameStatus_text, (pointsPercent*100))
+
 
         binding.playAgainButton.setOnClickListener {
             this.findNavController().navigate(R.id.action_endFragment_to_gameFragment)
@@ -60,12 +62,20 @@ class EndFragment () : Fragment() {
             this.findNavController().navigate(R.id.action_endFragment_to_titleFragment)
         }
 
+        val adapter = TranslationAdapter()
+        binding.translationList.adapter = adapter
+
+        endFragmentViewModel.translations.observe(viewLifecycleOwner, Observer {
+            it?.let {
+                adapter.submitList(it)
+            }
+        })
 
 
 
 
 
-        binding.setLifecycleOwner(this)
+
 
 
 

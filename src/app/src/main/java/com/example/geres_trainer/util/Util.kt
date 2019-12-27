@@ -139,3 +139,22 @@ fun keyToStringDecoder(string: String) : Queue<Long> {
 
     return queue
 }
+
+
+fun keyToListDecoder(string: String) : List<Long> {
+
+
+    var tmpList : MutableList<Long> = mutableListOf()
+
+    val keys : List<String> = string.split(";")
+
+
+
+    for (value in keys){
+        if(value != ""){
+            tmpList.add(value.toLong())
+        }
+    }
+
+    return tmpList.toList()
+}

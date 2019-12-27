@@ -9,149 +9,73 @@
             type="com.example.geres_trainer.screens.end.EndFragmentViewModel" />
     </data>
 
-    <ScrollView
+    <androidx.constraintlayout.widget.ConstraintLayout
         android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        android:fillViewport="true">
+        android:layout_height="match_parent">
 
-        <androidx.constraintlayout.widget.ConstraintLayout
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content">
+        <TextView
+            android:id="@+id/GameStatusTextView"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="36dp"
+            android:text="@string/gameStatus_text"
+            android:textAlignment="center"
+            android:textAllCaps="true"
+            android:textSize="24sp"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintHorizontal_bias="0.498"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent" />
 
-            <TextView
-                android:id="@+id/GameStatusTextView"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_marginTop="36dp"
-                android:text="@string/gameStatus_text"
-                android:textAlignment="center"
-                android:textAllCaps="true"
-                android:textSize="24sp"
-                app:layout_constraintEnd_toEndOf="parent"
-                app:layout_constraintHorizontal_bias="0.498"
-                app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toTopOf="parent" />
+        <TextView
+            android:id="@+id/GameResultTextView"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="56dp"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintHorizontal_bias="0.498"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/GameStatusTextView" />
 
-            <TextView
-                android:id="@+id/GameResultTextView"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_marginTop="56dp"
-                app:layout_constraintEnd_toEndOf="parent"
-                app:layout_constraintHorizontal_bias="0.498"
-                app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toBottomOf="@+id/GameStatusTextView" />
+        <Button
+            android:id="@+id/playAgainButton"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="64dp"
+            android:layout_marginTop="64dp"
+            android:layout_marginEnd="80dp"
+            android:text="@string/playAgainButton_text"
+            app:layout_constraintEnd_toStartOf="@+id/goToTitleButton"
+            app:layout_constraintHorizontal_bias="0.0"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/GameResultTextView" />
 
-            <Button
-                android:id="@+id/playAgainButton"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_marginStart="64dp"
-                android:layout_marginTop="64dp"
-                android:layout_marginEnd="80dp"
-                android:text="@string/playAgainButton_text"
-                app:layout_constraintEnd_toStartOf="@+id/goToTitleButton"
-                app:layout_constraintHorizontal_bias="0.0"
-                app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toBottomOf="@+id/GameResultTextView" />
+        <Button
+            android:id="@+id/goToTitleButton"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="64dp"
+            android:layout_marginEnd="64dp"
+            android:text="@string/goToTitleButton_text"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/GameResultTextView" />
 
-            <Button
-                android:id="@+id/goToTitleButton"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_marginTop="64dp"
-                android:layout_marginEnd="64dp"
-                android:text="@string/goToTitleButton_text"
-                app:layout_constraintEnd_toEndOf="parent"
-                app:layout_constraintTop_toBottomOf="@+id/GameResultTextView" />
+        <androidx.recyclerview.widget.RecyclerView
+            android:id="@+id/translationList"
+            android:layout_width="0dp"
+            android:layout_height="0dp"
+            android:layout_marginTop="8dp"
+            android:layout_marginBottom="8dp"
+            android:scrollbars="vertical"
+            app:layoutManager="androidx.recyclerview.widget.LinearLayoutManager"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintHorizontal_bias="0.0"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/goToTitleButton"
+            app:layout_constraintVertical_bias="0.178" />
 
-            <TextView
-                android:id="@+id/wrongWordTitleTextView"
-                android:layout_width="0dp"
-                android:layout_height="wrap_content"
-                android:layout_marginTop="35dp"
-                app:layout_constraintBottom_toBottomOf="parent"
-                app:layout_constraintEnd_toEndOf="parent"
-                app:layout_constraintHorizontal_bias="0.498"
-                app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toBottomOf="@+id/playAgainButton"
-                app:layout_constraintVertical_bias="0.0" />
 
-            <LinearLayout
-                android:id="@+id/linearLayoutTitle"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:orientation="horizontal"
-                app:layout_constraintEnd_toEndOf="parent"
-                app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toBottomOf="@+id/wrongWordTitleTextView">
-
-                <TextView
-                    android:id="@+id/resultTitleGerTextView"
-                    android:layout_width="0dp"
-                    android:layout_height="wrap_content"
-                    android:layout_weight="0.2"
-                    android:text="@string/gerTitleTextView_text"
-                    android:textAlignment="center"
-                    android:textStyle="bold" />
-
-                <TextView
-                    android:id="@+id/resultTitleESTextView"
-                    android:layout_width="0dp"
-                    android:layout_height="wrap_content"
-                    android:layout_weight="0.2"
-                    android:text="@string/esTitleTextView_text"
-                    android:textAlignment="center"
-                    android:textStyle="bold" />
-
-                <TextView
-                    android:id="@+id/resultTitleInfoTextView"
-                    android:layout_width="0dp"
-                    android:layout_height="wrap_content"
-                    android:layout_weight="0.6"
-                    android:text="@string/infoTitleTextView_text"
-                    android:textAlignment="center"
-                    android:textStyle="bold" />
-
-            </LinearLayout>
-
-            <LinearLayout
-                android:id="@+id/linearLayoutBody"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:layout_marginTop="16dp"
-                android:layout_marginEnd="2dp"
-                android:orientation="horizontal"
-                app:layout_constraintBottom_toBottomOf="parent"
-                app:layout_constraintEnd_toEndOf="parent"
-                app:layout_constraintHorizontal_bias="1.0"
-                app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toBottomOf="@+id/linearLayoutTitle"
-                app:layout_constraintVertical_bias="0.0">
-
-                <TextView
-                    android:id="@+id/resultGerTextView"
-                    android:layout_width="0dp"
-                    android:layout_height="wrap_content"
-                    android:layout_weight="0.2"
-                    android:text="@{endFragmentViewModel.gerString}" />
-
-                <TextView
-                    android:id="@+id/resultEsTextView"
-                    android:layout_width="0dp"
-                    android:layout_height="wrap_content"
-                    android:layout_weight="0.2"
-                    android:text="@{endFragmentViewModel.esString}" />
-
-                <TextView
-                    android:id="@+id/resultInfoTextView"
-                    android:layout_width="0dp"
-                    android:layout_height="wrap_content"
-                    android:layout_weight="0.6"
-                    android:text="@{endFragmentViewModel.infoString}" />
-            </LinearLayout>
-
-        </androidx.constraintlayout.widget.ConstraintLayout>
-    </ScrollView>
+    </androidx.constraintlayout.widget.ConstraintLayout>
 
 </layout>

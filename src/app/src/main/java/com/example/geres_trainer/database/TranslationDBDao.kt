@@ -35,4 +35,9 @@ interface TranslationDBDao {
 
     @Query("SELECT * from word_translation_table")
     fun getAllTranslationsNotLive() : List<Translation>
+
+    @Query("SELECT * FROM word_translation_table WHERE translationID IN (:keys)")
+    fun getTranslationsByKeys(keys: LongArray): LiveData<List<Translation>>
+
+
 }
