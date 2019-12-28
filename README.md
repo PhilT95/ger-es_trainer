@@ -22,6 +22,7 @@ This app offers the following features:
 - Persistent Storage achieved with a simple room database
 - Responsive GUI thanks to the Fragment/FragmentViewModel Architecture
 - Using LifecycleEvents for natural app behaviour
+- RecycleView implementation for translation lists
 
 ### Dependencies
 The app uses a Room database for saving the translations. 

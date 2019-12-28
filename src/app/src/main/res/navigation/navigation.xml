@@ -8,18 +8,21 @@
     <fragment
         android:id="@+id/gameFragment"
         android:name="com.example.geres_trainer.screens.game.GameFragment"
-        android:label="GameFragment" >
+        android:label="GameFragment"
+        tools:layout="@layout/game_fragment">
         <action
             android:id="@+id/action_gameFragment_to_titleFragment"
             app:destination="@id/titleFragment" />
         <action
             android:id="@+id/action_gameFragment_to_endFragment"
-            app:destination="@id/endFragment" />
+            app:destination="@id/endFragment"
+            app:popUpTo="@id/titleFragment" />
     </fragment>
     <fragment
         android:id="@+id/titleFragment"
         android:name="com.example.geres_trainer.screens.title.TitleFragment"
-        android:label="TitleFragment" >
+        android:label="TitleFragment"
+        tools:layout="@layout/title_fragment">
         <action
             android:id="@+id/action_titleFragment_to_gameFragment"
             app:destination="@id/gameFragment" />
@@ -33,15 +36,20 @@
     <fragment
         android:id="@+id/viewFragment"
         android:name="com.example.geres_trainer.screens.view.ViewFragment"
-        android:label="ViewFragment" >
+        android:label="ViewFragment"
+        tools:layout="@layout/view_fragment">
         <action
             android:id="@+id/action_viewFragment_to_titleFragment"
             app:destination="@id/titleFragment" />
+        <action
+            android:id="@+id/action_viewFragment_to_editFragment"
+            app:destination="@id/editFragment" />
     </fragment>
     <fragment
         android:id="@+id/addFragment"
         android:name="com.example.geres_trainer.screens.add.AddFragment"
-        android:label="AddFragment" >
+        android:label="AddFragment"
+        tools:layout="@layout/add_fragment">
         <action
             android:id="@+id/action_addFragment_to_titleFragment"
             app:destination="@id/titleFragment" />
@@ -49,12 +57,27 @@
     <fragment
         android:id="@+id/endFragment"
         android:name="com.example.geres_trainer.screens.end.EndFragment"
-        android:label="EndFragment" >
+        android:label="EndFragment"
+        tools:layout="@layout/end_fragment">
         <action
             android:id="@+id/action_endFragment_to_gameFragment"
             app:destination="@id/gameFragment" />
         <action
             android:id="@+id/action_endFragment_to_titleFragment"
             app:destination="@id/titleFragment" />
+        <action
+            android:id="@+id/action_endFragment_to_editFragment"
+            app:destination="@id/editFragment" />
+    </fragment>
+    <fragment
+        android:id="@+id/editFragment"
+        android:name="com.example.geres_trainer.screens.edit.EditFragment"
+        android:label="EditFragment">
+        <action
+            android:id="@+id/action_editFragment_to_viewFragment"
+            app:destination="@id/viewFragment" />
+        <argument
+            android:name="translationKey"
+            app:argType="long" />
     </fragment>
 </navigation>

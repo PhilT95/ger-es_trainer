@@ -1,10 +1,11 @@
 package com.example.geres_trainer.screens.add
 
 import android.os.Bundle
+import android.text.Editable
+import android.text.TextWatcher
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import androidx.core.widget.addTextChangedListener
 import androidx.databinding.DataBindingUtil
 import androidx.fragment.app.Fragment
 import androidx.lifecycle.Observer
@@ -47,27 +48,38 @@ class AddFragment :  Fragment () {
         }
 
 
-        binding.gerTextField.addTextChangedListener {
-            addFragmentViewModel.checkState(gerTextField.text.toString(), esTextField.text.toString())
-        }
+        binding.gerTextField.addTextChangedListener(object : TextWatcher {
+            override fun afterTextChanged(s: Editable?) {
+                addFragmentViewModel.checkState(gerTextField.text.toString(), esTextField.text.toString())
+            }
 
-        binding.esTextField.addTextChangedListener {
-            addFragmentViewModel.checkState(gerTextField.text.toString(), esTextField.text.toString())
-        }
+            override fun beforeTextChanged(s: CharSequence?, start: Int, count: Int, after: Int) {
 
-        binding.infoTextField.addTextChangedListener {
-            addFragmentViewModel.checkState(gerTextField.text.toString(), esTextField.text.toString())
-        }
+            }
+
+            override fun onTextChanged(s: CharSequence?, start: Int, before: Int, count: Int) {
+
+            }
+        })
+
+        binding.esTextField.addTextChangedListener(object : TextWatcher {
+            override fun afterTextChanged(s: Editable?) {
+                addFragmentViewModel.checkState(gerTextField.text.toString(), esTextField.text.toString())
+            }
+
+            override fun beforeTextChanged(s: CharSequence?, start: Int, count: Int, after: Int) {
+
+            }
+
+            override fun onTextChanged(s: CharSequence?, start: Int, before: Int, count: Int) {
+
+            }
+        })
 
 
 
         addFragmentViewModel.canAddTranslation.observe(this, Observer {
-            if(addFragmentViewModel.canAddTranslation.value == true) {
-                binding.addButton.isEnabled = true
-            }
-            else{
-                binding.addButton.isEnabled = false
-            }
+            binding.addButton.isEnabled = addFragmentViewModel.canAddTranslation.value!!
         })
 
         addFragmentViewModel.showSnackbarEventSuccess.observe(this, Observer {
@@ -113,6 +125,8 @@ class AddFragment :  Fragment () {
             }
 
         })
+
+
 
         binding.addFragmentViewModel = addFragmentViewModel
 

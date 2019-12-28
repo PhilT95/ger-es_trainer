@@ -1,10 +1,12 @@
 package com.example.geres_trainer.screens.title
 
 import android.app.Application
+import android.content.Context
 import androidx.lifecycle.AndroidViewModel
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import com.example.geres_trainer.database.Translation
+import com.example.geres_trainer.database.TranslationDB
 import com.example.geres_trainer.database.TranslationDBDao
 import com.example.geres_trainer.util.populateDatabase
 import kotlinx.coroutines.*
@@ -29,6 +31,10 @@ class TitleFragmentViewModel (
     val searchedTranslation : LiveData<String>
         get() = _searchedTranslation
 
+    private var _databaseReset = MutableLiveData<Boolean>()
+    val databaseReset : LiveData<Boolean>
+        get() = _databaseReset
+
 
 
 
@@ -48,12 +54,16 @@ class TitleFragmentViewModel (
         }
     }
 
-    private suspend fun clear() {
-        withContext(Dispatchers.IO) {
-            database.clear()
-            val res = getApplication<Application>().applicationContext.resources
-            populateDatabase(database, res)
-        }
+    private fun clear() {
+        _databaseReset.value = true
+    }
+
+
+
+    fun deleteDatabase(context: Context) {
+        TranslationDB.destroyInstance()
+        context.deleteDatabase("translation_database")
+        _databaseReset.value = false
     }
 
 
@@ -81,6 +91,7 @@ class TitleFragmentViewModel (
     fun onClear() {
         uiScope.launch {
             clear()
+
 
         }
 

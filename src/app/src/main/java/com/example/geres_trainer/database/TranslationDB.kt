@@ -34,13 +34,14 @@ abstract class TranslationDB : RoomDatabase() {
                         TranslationDB::class.java,
                         "translation_database"
                     )
+                        .createFromAsset("initDB.db")
                         .addCallback(object : Callback() {
                             override fun onCreate(db: SupportSQLiteDatabase) {
                                 super.onCreate(db)
 
                                 // Initializes Database with default data set in the IOThread
                                 ioThread {
-                                    dbInit(context)
+                                    //dbInit(context)
                                 }
 
                             }
@@ -48,12 +49,15 @@ abstract class TranslationDB : RoomDatabase() {
                         })
                         .fallbackToDestructiveMigration()
                         .build()
-                    val dataBaseInit : RoomDatabase.Callback
                     INSTANCE = instance
                 }
 
                 return instance
             }
+        }
+
+        fun destroyInstance() {
+            INSTANCE = null
         }
 
 

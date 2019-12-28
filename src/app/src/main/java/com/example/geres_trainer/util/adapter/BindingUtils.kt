@@ -1,4 +1,4 @@
-package com.example.geres_trainer.util
+package com.example.geres_trainer.util.adapter
 
 import android.widget.TextView
 import androidx.databinding.BindingAdapter

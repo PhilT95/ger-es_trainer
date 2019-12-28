@@ -1,6 +1,5 @@
 package com.example.geres_trainer.screens.end
 
-import android.app.Application
 import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
@@ -13,10 +12,11 @@ import androidx.navigation.fragment.findNavController
 import com.example.geres_trainer.R
 import com.example.geres_trainer.database.TranslationDB
 import com.example.geres_trainer.databinding.EndFragmentBinding
+import com.example.geres_trainer.util.adapter.TranslationAdapter
+import com.example.geres_trainer.util.adapter.TranslationListener
 import com.example.geres_trainer.util.keyToListDecoder
-import kotlinx.android.synthetic.main.activity_main.*
 
-class EndFragment () : Fragment() {
+class EndFragment : Fragment() {
 
 
 
@@ -49,6 +49,15 @@ class EndFragment () : Fragment() {
 
         binding.setLifecycleOwner(this)
 
+        endFragmentViewModel.navigateToEdit.observe(this, Observer { translation ->
+            translation?.let {
+                this.findNavController().navigate(
+                    EndFragmentDirections.actionEndFragmentToEditFragment(translation)
+                )
+                endFragmentViewModel.onEditNavigated()
+            }
+        })
+
 
         binding.GameStatusTextView.text = getString(R.string.gameStatus_text, (pointsPercent*100))
 
@@ -61,7 +70,9 @@ class EndFragment () : Fragment() {
             this.findNavController().navigate(R.id.action_endFragment_to_titleFragment)
         }
 
-        val adapter = TranslationAdapter()
+        val adapter = TranslationAdapter(TranslationListener { translationID ->
+            endFragmentViewModel.onTranslationClicked(translationID)
+        })
         binding.translationList.adapter = adapter
 
         endFragmentViewModel.translations.observe(viewLifecycleOwner, Observer {

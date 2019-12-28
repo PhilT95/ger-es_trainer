@@ -22,4 +22,6 @@
     <string name="gerTitleTextView_text">German</string>
     <string name="esTitleTextView_text">Spanish</string>
     <string name="infoTitleTextView_text">Info</string>
+    <string name="updateButton_text">Update</string>
+    <string name="translationUpdatedSuccess_message">The Translation has been updated successfully!</string>
 </resources>

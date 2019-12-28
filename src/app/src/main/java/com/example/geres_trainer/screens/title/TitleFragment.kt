@@ -68,6 +68,14 @@ class TitleFragment : Fragment () {
 
             }
         })
+
+        titleFragmentViewModel.databaseReset.observe(this, Observer {
+            if(it == true){
+                titleFragmentViewModel.deleteDatabase(this.context!!)
+            }
+        })
+
+
         return binding.root
     }
 

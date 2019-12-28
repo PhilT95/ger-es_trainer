@@ -7,47 +7,19 @@ import com.example.geres_trainer.util.formatTranslationsForView
 class ViewFragmentViewModel (
     val database: TranslationDBDao) : ViewModel() {
 
+    val translations = database.getAllTranslations()
 
-    //private val viewModelJob = Job()
+    private val _navigateToEdit = MutableLiveData<Long>()
+    val navigateToEdit
+        get() = _navigateToEdit
 
-    //private val uiScope = CoroutineScope(Dispatchers.Main + viewModelJob)
-
-
-    //private val _navigateToTitleFragment = MutableLiveData<Boolean?>()
-
-
-
-
-
-
-
-    private val translations = database.getAllTranslations()
-
-    val lists = Transformations.map(translations) { translations ->
-        (formatTranslationsForView(translations))
+    fun onTranslationClicked(id: Long) {
+        _navigateToEdit.value = id
     }
 
-    val gerList = Transformations.map(lists) {lists ->
-        lists.get(0)
+    fun onEditNavigated() {
+        _navigateToEdit.value = null
     }
-
-    val esList = Transformations.map(lists) {lists ->
-        lists.get(1)
-    }
-
-    val infoList = Transformations.map(lists) {lists ->
-        lists.get(2)
-    }
-
-
-
-
-
-
-
-
-
-
 
 
 }

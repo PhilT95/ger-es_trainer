@@ -1,6 +1,6 @@
 package com.example.geres_trainer.screens.game
 
-import android.content.SharedPreferences
+
 import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
@@ -9,19 +9,14 @@ import android.view.inputmethod.EditorInfo
 import androidx.core.os.bundleOf
 import androidx.databinding.DataBindingUtil
 import androidx.fragment.app.Fragment
-import androidx.fragment.app.viewModels
-import androidx.lifecycle.LifecycleOwner
 import androidx.lifecycle.Observer
 import androidx.lifecycle.ViewModelProviders
 import androidx.navigation.fragment.findNavController
 import com.example.geres_trainer.R
-import com.example.geres_trainer.database.Translation
 import com.example.geres_trainer.database.TranslationDB
 import com.example.geres_trainer.databinding.GameFragmentBinding
 import com.example.geres_trainer.util.keyToStringEncoder
 import com.google.android.material.snackbar.Snackbar
-import kotlinx.android.synthetic.main.activity_main.*
-import java.util.*
 
 class GameFragment : Fragment() {
 
@@ -61,7 +56,7 @@ class GameFragment : Fragment() {
             buttonClicked = false
         }
 
-        binding.answerTextField.setOnEditorActionListener { v, actionId, event ->
+        binding.answerTextField.setOnEditorActionListener {_, actionId, _ ->
             return@setOnEditorActionListener when (actionId) {
                 EditorInfo.IME_ACTION_DONE -> {
                     if (!buttonClicked){

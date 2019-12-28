@@ -83,7 +83,10 @@ fun populateDatabase(database : TranslationDBDao, res: Resources) {
 }
 
 
-
+/*
+Encodes a Queue of Long values.
+Used to a list of translationIDs in a very simple way to another fragment.
+ */
 fun keyToStringEncoder(intQueue : Queue<Long>) : String {
     var keyString = StringBuilder()
 
@@ -96,6 +99,10 @@ fun keyToStringEncoder(intQueue : Queue<Long>) : String {
 
 
 
+/*
+Decodes the string decoded by the keytoStringEncoder function back.
+Returns a List of TranslationIDs (Long)
+ */
 fun keyToListDecoder(string: String) : List<Long> {
 
 

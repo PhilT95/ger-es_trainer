@@ -10,16 +10,22 @@
         <variable
             name="translation"
             type="com.example.geres_trainer.database.Translation" />
+        <variable
+            name="clickListener"
+            type="com.example.geres_trainer.util.adapter.TranslationListener" />
     </data>
+
 
     <androidx.constraintlayout.widget.ConstraintLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
+        android:background="@color/colorWhite"
+        android:onClick="@{() -> clickListener.onClick(translation)}"
         android:orientation="vertical">
 
         <View
             android:id="@+id/dividerTop"
-            android:layout_width="409dp"
+            android:layout_width="0dp"
             android:layout_height="1dp"
             android:layout_marginStart="1dp"
             android:layout_marginEnd="1dp"
