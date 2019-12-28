@@ -14,7 +14,6 @@ import com.example.geres_trainer.R
 import com.example.geres_trainer.database.TranslationDB
 import com.example.geres_trainer.databinding.EndFragmentBinding
 import com.example.geres_trainer.util.keyToListDecoder
-import com.example.geres_trainer.util.keyToStringDecoder
 import kotlinx.android.synthetic.main.activity_main.*
 
 class EndFragment () : Fragment() {

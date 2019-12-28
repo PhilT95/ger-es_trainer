@@ -61,34 +61,6 @@ fun formatTranslationsForView(translations : List<Translation>) : List<String> {
 
 }
 
-fun formatTranslationForEndView(translations : Queue<Translation>) : List<String> {
-    var gerList = StringBuilder()
-    var esList = StringBuilder()
-    var info = StringBuilder()
-
-    while(translations.isNotEmpty()) {
-        val value = translations.poll()
-        gerList.append("${value.wordGer}\n")
-        esList.append("${value.wordES}\n")
-        if (value.info.length > 45) {
-            val chunked = value.info.chunked(45)
-            for (value_chunked in chunked) {
-                info.append("${value_chunked}\n")
-                gerList.append("\n")
-                esList.append("\n")
-            }
-            gerList.append("\n")
-            esList.append("\n")
-
-        }
-        else {
-            info.append("${value.info}\n")
-        }
-    }
-
-
-    return listOf(gerList.toString(),esList.toString(),info.toString())
-}
 
 
 
@@ -110,11 +82,7 @@ fun populateDatabase(database : TranslationDBDao, res: Resources) {
     }
 }
 
-fun randomizeList(list : List<Translation>) : List<Translation> {
-    var randomList = emptyList<Translation>()
 
-    return randomList
-}
 
 fun keyToStringEncoder(intQueue : Queue<Long>) : String {
     var keyString = StringBuilder()
@@ -126,19 +94,6 @@ fun keyToStringEncoder(intQueue : Queue<Long>) : String {
     return keyString.toString()
 }
 
-fun keyToStringDecoder(string: String) : Queue<Long> {
-    var queue : Queue<Long> = ArrayDeque<Long>()
-
-    val keys : List<String> = string.split(";")
-
-    for (value in keys){
-        if(value != ""){
-           queue.add(value.toLong())
-        }
-    }
-
-    return queue
-}
 
 
 fun keyToListDecoder(string: String) : List<Long> {
