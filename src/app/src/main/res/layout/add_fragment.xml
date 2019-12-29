@@ -19,46 +19,49 @@
         android:layout_height="match_parent">
 
 
-            <EditText
-                android:id="@+id/gerTextField"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_marginTop="52dp"
-                android:hint="@string/gerTextField_text"
-                android:ems="10"
-                android:inputType="textPersonName"
-                android:text=""
-                app:layout_constraintEnd_toEndOf="parent"
-                app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toTopOf="parent" />
+        <EditText
+            android:id="@+id/gerTextField"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="52dp"
+            android:ems="10"
+            android:hint="@string/gerTextField_text"
+            android:inputType="textAutoCorrect|text"
+            android:text=""
+            android:textAlignment="center"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent" />
 
-            <EditText
-                android:id="@+id/esTextField"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_marginTop="52dp"
-                android:ems="10"
-                android:inputType="textPersonName"
-                android:hint="@string/esTextField_text"
-                android:text=""
-                app:layout_constraintEnd_toEndOf="parent"
-                app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toBottomOf="@+id/gerTextField" />
+        <EditText
+            android:id="@+id/esTextField"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="52dp"
+            android:ems="10"
+            android:hint="@string/esTextField_text"
+            android:inputType="textAutoCorrect|text"
+            android:text=""
+            android:textAlignment="center"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/gerTextField" />
 
-            <EditText
-                android:id="@+id/infoTextField"
-                android:layout_width="319dp"
-                android:layout_height="206dp"
-                android:ems="10"
-                android:gravity="start|top"
-                android:inputType="textMultiLine"
-                android:hint="@string/info_text"
-                android:text=""
-                app:layout_constraintBottom_toBottomOf="parent"
-                app:layout_constraintEnd_toEndOf="parent"
-                app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toBottomOf="@+id/esTextField"
-                app:layout_constraintVertical_bias="0.186" />
+        <EditText
+            android:id="@+id/infoTextField"
+            android:layout_width="319dp"
+            android:layout_height="206dp"
+            android:ems="10"
+            android:gravity="start|top"
+            android:hint="@string/info_text"
+            android:inputType="textAutoCorrect|textMultiLine"
+            android:text=""
+            android:textAlignment="center"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/esTextField"
+            app:layout_constraintVertical_bias="0.186" />
 
             <Button
                 android:id="@+id/addButton"

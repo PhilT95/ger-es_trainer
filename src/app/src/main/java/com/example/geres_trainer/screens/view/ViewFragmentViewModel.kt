@@ -1,52 +1,37 @@
 package com.example.geres_trainer.screens.view
 
 import androidx.lifecycle.*
+import com.example.geres_trainer.database.Translation
 import com.example.geres_trainer.database.TranslationDBDao
-import com.example.geres_trainer.util.formatTranslationsForView
+import kotlinx.coroutines.*
+
 
 class ViewFragmentViewModel (
     val database: TranslationDBDao) : ViewModel() {
 
-
-    //private val viewModelJob = Job()
-
-    //private val uiScope = CoroutineScope(Dispatchers.Main + viewModelJob)
-
-
-    //private val _navigateToTitleFragment = MutableLiveData<Boolean?>()
+    var translations = database.getAllTranslations()
 
 
 
+    private val _navigateToEdit = MutableLiveData<Long>()
+    val navigateToEdit
+        get() = _navigateToEdit
 
-
-
-
-    private val translations = database.getAllTranslations()
-
-    val lists = Transformations.map(translations) { translations ->
-        (formatTranslationsForView(translations))
+    fun onTranslationClicked(id: Long) {
+        _navigateToEdit.value = id
     }
 
-    val gerList = Transformations.map(lists) {lists ->
-        lists.get(0)
+    fun onEditNavigated() {
+        _navigateToEdit.value = null
     }
 
-    val esList = Transformations.map(lists) {lists ->
-        lists.get(1)
+     fun searchTranslations(searchString: String) : List<Translation>? {
+
+         return translations.value!!.filter { it.wordGer.contains(searchString, true) || it.wordES.contains(searchString, true)  }
+
+
+
     }
-
-    val infoList = Transformations.map(lists) {lists ->
-        lists.get(2)
-    }
-
-
-
-
-
-
-
-
-
 
 
 

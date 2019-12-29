@@ -1,6 +1,6 @@
 package com.example.geres_trainer.screens.game
 
-import android.content.SharedPreferences
+
 import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
@@ -9,19 +9,14 @@ import android.view.inputmethod.EditorInfo
 import androidx.core.os.bundleOf
 import androidx.databinding.DataBindingUtil
 import androidx.fragment.app.Fragment
-import androidx.fragment.app.viewModels
-import androidx.lifecycle.LifecycleOwner
 import androidx.lifecycle.Observer
 import androidx.lifecycle.ViewModelProviders
 import androidx.navigation.fragment.findNavController
 import com.example.geres_trainer.R
-import com.example.geres_trainer.database.Translation
 import com.example.geres_trainer.database.TranslationDB
 import com.example.geres_trainer.databinding.GameFragmentBinding
 import com.example.geres_trainer.util.keyToStringEncoder
 import com.google.android.material.snackbar.Snackbar
-import kotlinx.android.synthetic.main.activity_main.*
-import java.util.*
 
 class GameFragment : Fragment() {
 
@@ -44,6 +39,8 @@ class GameFragment : Fragment() {
             ViewModelProviders.of(
                 this, viewModelFactory).get(GameFragmentViewModel::class.java)
 
+        var buttonClicked = false
+
 
 
         binding.gameFragmentViewModel = gameFragmentViewModel
@@ -52,9 +49,24 @@ class GameFragment : Fragment() {
 
 
         binding.comfirmAnswerButton.setOnClickListener {
+            buttonClicked = true
             gameFragmentViewModel.onConfirmClick(binding.answerTextField.text.toString())
             binding.answerTextField.text.clear()
-            binding.answerTextField.onEditorAction(EditorInfo.IME_ACTION_DONE)
+            binding.answerTextField.onEditorAction(EditorInfo.IME_ACTION_GO)
+            buttonClicked = false
+        }
+
+        binding.answerTextField.setOnEditorActionListener {_, actionId, _ ->
+            return@setOnEditorActionListener when (actionId) {
+                EditorInfo.IME_ACTION_DONE -> {
+                    if (!buttonClicked){
+                        gameFragmentViewModel.onConfirmClick(binding.answerTextField.text.toString())
+                        binding.answerTextField.text.clear()
+                    }
+                    false
+                }
+                else -> true
+            }
         }
 
         gameFragmentViewModel.gameIsDone.observe(this, Observer {
@@ -96,6 +108,8 @@ class GameFragment : Fragment() {
                 gameFragmentViewModel.doneShowFalseSnackBar()
             }
         })
+
+
 
         gameFragmentViewModel.initRandomGame()
 

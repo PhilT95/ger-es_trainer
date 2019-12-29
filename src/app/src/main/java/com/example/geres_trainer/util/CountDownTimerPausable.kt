@@ -1,7 +1,5 @@
-package com.example.geres_trainer.screens
+package com.example.geres_trainer.util
 
-import android.R.string.cancel
-import android.R.attr.start
 import android.os.CountDownTimer
 
 

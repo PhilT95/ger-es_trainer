@@ -46,8 +46,8 @@ class AddFragmentViewModel (
         var containsIllegalSymbol = false
         withContext(Dispatchers.IO) {
             val newTranslation = Translation()
-            newTranslation.wordGer = gerWord
-            newTranslation.wordES = esWord
+            newTranslation.wordGer = gerWord.trim()
+            newTranslation.wordES = esWord.trim()
             newTranslation.info = info
 
 
