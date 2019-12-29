@@ -1,11 +1,12 @@
 package com.example.geres_trainer.screens.view
 
+
 import android.os.Bundle
-import android.view.LayoutInflater
-import android.view.View
-import android.view.ViewGroup
+import android.view.*
+import android.widget.SearchView
 import androidx.databinding.DataBindingUtil
 import androidx.fragment.app.Fragment
+import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.Observer
 import androidx.lifecycle.ViewModelProviders
 import androidx.navigation.fragment.findNavController
@@ -16,7 +17,10 @@ import com.example.geres_trainer.util.adapter.TranslationAdapter
 import com.example.geres_trainer.util.adapter.TranslationListener
 
 
-class ViewFragment : Fragment () {
+class ViewFragment : Fragment (), SearchView.OnQueryTextListener{
+
+
+    private var searchText = MutableLiveData<String>()
 
     override fun onCreateView(
         inflater: LayoutInflater,
@@ -38,9 +42,12 @@ class ViewFragment : Fragment () {
 
         binding.viewFragmentViewModel = viewFragmentViewModel
 
+        setHasOptionsMenu(true)
+
 
 
         binding.setLifecycleOwner(this)
+
 
 
 
@@ -65,9 +72,64 @@ class ViewFragment : Fragment () {
             }
         })
 
+        searchText.observe(this, Observer {searchString ->
+            searchString?.let {
+                if(searchString == ""){
+                    adapter.submitList(viewFragmentViewModel.translations.value)
+                }
+                else{
+                    val list = viewFragmentViewModel.searchTranslations(searchString)
+                    adapter.submitList(list)
+
+
+                }
+
+            }
+        })
+
+
+
 
         return binding.root
     }
+
+    override fun onCreateOptionsMenu(menu: Menu, inflater: MenuInflater){
+        inflater.inflate(R.menu.search_menu, menu)
+
+        val menuItem = menu.findItem(R.id.action_search)
+        val searchView = menuItem.actionView as SearchView
+        searchView.setOnQueryTextListener(this)
+
+        searchView.setOnCloseListener{
+            searchView.setQuery("",true)
+            true
+        }
+
+
+
+        super.onCreateOptionsMenu(menu, inflater)
+
+
+
+
+    }
+
+    override fun onQueryTextChange(newText: String?): Boolean {
+        searchText.value = newText
+        return true
+
+    }
+
+    override fun onQueryTextSubmit(query: String?): Boolean {
+        return false
+    }
+
+
+
+
+
+
+
 
 
 

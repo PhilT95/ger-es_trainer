@@ -1,13 +1,17 @@
 package com.example.geres_trainer.screens.view
 
 import androidx.lifecycle.*
+import com.example.geres_trainer.database.Translation
 import com.example.geres_trainer.database.TranslationDBDao
-import com.example.geres_trainer.util.formatTranslationsForView
+import kotlinx.coroutines.*
+
 
 class ViewFragmentViewModel (
     val database: TranslationDBDao) : ViewModel() {
 
-    val translations = database.getAllTranslations()
+    var translations = database.getAllTranslations()
+
+
 
     private val _navigateToEdit = MutableLiveData<Long>()
     val navigateToEdit
@@ -20,6 +24,15 @@ class ViewFragmentViewModel (
     fun onEditNavigated() {
         _navigateToEdit.value = null
     }
+
+     fun searchTranslations(searchString: String) : List<Translation>? {
+
+         return translations.value!!.filter { it.wordGer.contains(searchString, true) || it.wordES.contains(searchString, true)  }
+
+
+
+    }
+
 
 
 }

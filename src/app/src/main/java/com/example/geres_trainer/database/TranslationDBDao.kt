@@ -31,6 +31,9 @@ interface TranslationDBDao {
     @Query("SELECT * FROM word_translation_table ORDER BY translationID DESC LIMIT 1")
     fun getMostRecentWord(): Translation
 
+    @Query("SELECT * FROM word_translation_table WHERE word_ger = :string")
+    fun getTranslationsBySearch(string: String): LiveData<List<Translation>>
+
     @Query("SELECT * from word_translation_table")
     fun getAllTranslations() : LiveData<List<Translation>>
 
