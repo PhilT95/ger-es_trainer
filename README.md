@@ -1,7 +1,7 @@
 # German-Spanisch Vocabular Trainer
-Last updated on Sunday, 01. December 2019 06:23 
+Last updated on Sunday, 29. December 2019 09:47PM 
   
-**Game Version 1.0**
+**Game Version 1.1.0**
 
 
 ## What is the app about?
@@ -16,16 +16,18 @@ This app offers the following features:
 - a game where you have to translate random german words into spanish in a given time
 - a lightweight and easy to-use app
 
-![Main Menu](pictures/main_menu.png)
+![Main Menu](pictures/main_menu_resized.png)
 
 ## Techincal Features
 - Persistent Storage achieved with a simple room database
 - Responsive GUI thanks to the Fragment/FragmentViewModel Architecture
 - Using LifecycleEvents for natural app behaviour
 - RecycleView implementation for translation lists
+- Search Function to go through data
 
 ### Dependencies
-The app uses a Room database for saving the translations. 
+No additional dependencies requiered.
+ 
 
 
 
