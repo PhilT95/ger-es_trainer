@@ -34,10 +34,6 @@ class EndFragment : Fragment() {
         val points = arguments?.get("points").toString().toInt()
         val pointsPercent : Float = (points.toFloat()/resources.getInteger(R.integer.defaultGameSize).toFloat())
 
-
-
-
-
         val viewModelFactory = EndFragmentViewModelFactory(dataSource, keyToListDecoder(arguments?.get("keys").toString()), application)
 
         val endFragmentViewModel =

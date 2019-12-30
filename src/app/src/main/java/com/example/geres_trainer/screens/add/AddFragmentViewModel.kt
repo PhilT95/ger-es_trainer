@@ -38,9 +38,14 @@ class AddFragmentViewModel (
         get() = _showSnackBarEventIllegalSymbol
 
 
-
-
-
+    /**
+     * Creates a new translation and tries to add it to the database.
+     * Trims the input of whitespaces to make the input for the user easier.
+     * Only to be used in a CoroutineScope.
+     * @param gerWord the german translation.
+     * @param esWord the spanish translation.
+     * @param info the info text to the translation.
+     */
     private suspend fun add(gerWord : String, esWord : String, info : String) {
         var didWork = false
         var containsIllegalSymbol = false
@@ -49,11 +54,6 @@ class AddFragmentViewModel (
             newTranslation.wordGer = gerWord.trim()
             newTranslation.wordES = esWord.trim()
             newTranslation.info = info
-
-
-
-
-
             try {
                 if(!info.contains(";")){
                     database.insert(newTranslation)
@@ -105,10 +105,15 @@ class AddFragmentViewModel (
         _showSnackBarEventIllegalSymbol.value = false
     }
 
+
+    /**
+     * Checks if the german and the spanish word are equal.
+     * Sets _canAddTranslation to true so the add button gets enabled.
+     * @param gerWord the german word.
+     * @param esWord the spanish word.
+     */
     fun checkState (gerWord : String, esWord : String) {
-      if(gerWord != "" && esWord != "") {
-          _canAddTranslation.value = true
-      }
+        _canAddTranslation.value = (!gerWord.isNullOrBlank() && !esWord.isNullOrBlank())
     }
 
 

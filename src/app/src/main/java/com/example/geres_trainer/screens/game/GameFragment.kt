@@ -41,13 +41,12 @@ class GameFragment : Fragment() {
 
         var buttonClicked = false
 
-
-
         binding.gameFragmentViewModel = gameFragmentViewModel
 
 
-
-
+        /**
+         * This Listener provides the logic when the ConfirmAnswerButton is clicked.
+         */
         binding.comfirmAnswerButton.setOnClickListener {
             buttonClicked = true
             gameFragmentViewModel.onConfirmClick(binding.answerTextField.text.toString())
@@ -56,6 +55,10 @@ class GameFragment : Fragment() {
             buttonClicked = false
         }
 
+        /**
+         * This Listener is used to allow the user to confirm his answer with the enter button of his virtual keyboard.
+         * It also closes the keyboard after pressing the enter button.
+         */
         binding.answerTextField.setOnEditorActionListener {_, actionId, _ ->
             return@setOnEditorActionListener when (actionId) {
                 EditorInfo.IME_ACTION_DONE -> {
@@ -113,6 +116,9 @@ class GameFragment : Fragment() {
 
         gameFragmentViewModel.initRandomGame()
 
+        /**
+         *  Used to start and stop the timer on specific lifecycle events
+         */
         lifecycle.addObserver(gameFragmentViewModel)
 
 

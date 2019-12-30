@@ -5,12 +5,17 @@ import android.content.Context
 import androidx.lifecycle.AndroidViewModel
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
-import com.example.geres_trainer.database.Translation
 import com.example.geres_trainer.database.TranslationDB
 import com.example.geres_trainer.database.TranslationDBDao
-import com.example.geres_trainer.util.populateDatabase
 import kotlinx.coroutines.*
 
+
+/**
+ * This class is responsible for calculations that happen in the background of the title fragment.
+ *
+ * @property database the database access interface.
+ * @param application the application and its context.
+ */
 class TitleFragmentViewModel (
     val database: TranslationDBDao,
     application: Application) : AndroidViewModel(application) {
@@ -26,11 +31,6 @@ class TitleFragmentViewModel (
         get() = _showSnackBarEvent
 
 
-    private var _searchedTranslation = MutableLiveData<String>()
-
-    val searchedTranslation : LiveData<String>
-        get() = _searchedTranslation
-
     private var _databaseReset = MutableLiveData<Boolean>()
     val databaseReset : LiveData<Boolean>
         get() = _databaseReset
@@ -43,49 +43,20 @@ class TitleFragmentViewModel (
         _showSnackBarEvent.value = false
     }
 
-
-
-
-
-    private suspend fun getTranslationFromDatabase(string : String) : Translation? {
-        return withContext(Dispatchers.IO) {
-            var translation = database.getTranslatioByGer(string)
-            translation
-        }
-    }
-
     private fun clear() {
         _databaseReset.value = true
     }
 
 
-
+    /**
+     * This function deletes the current database so it can be re-created from scratch.
+     * First it deletes the currently loaded instance of the database from the context, then the database gets deleted.
+     * @param context the context of the application
+     */
     fun deleteDatabase(context: Context) {
         TranslationDB.destroyInstance()
         context.deleteDatabase("translation_database")
         _databaseReset.value = false
-    }
-
-
-
-
-
-
-
-    fun onEdit() {
-        uiScope.launch {
-
-            val translation = getTranslationFromDatabase("Frage")
-            if (translation != null){
-                _searchedTranslation.value = translation.wordES
-            }
-            else {
-                _searchedTranslation.value = "No Word found!"
-            }
-
-        }
-
-        _showSnackBarEvent.value = true
     }
 
     fun onClear() {
@@ -98,6 +69,9 @@ class TitleFragmentViewModel (
         _showSnackBarEvent.value = true
     }
 
+    /**
+     * Clears all current Coroutine jobs in the background before closing-
+     */
     override fun onCleared() {
         super.onCleared()
         viewModelJob.cancel()

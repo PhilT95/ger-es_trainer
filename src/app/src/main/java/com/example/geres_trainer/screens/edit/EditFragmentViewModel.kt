@@ -9,7 +9,7 @@ import com.example.geres_trainer.database.TranslationDBDao
 import kotlinx.coroutines.*
 
 class EditFragmentViewModel (
-    private val translationKey: Long = 0L,
+    translationKey: Long = 0L,
     dataSource: TranslationDBDao) : ViewModel() {
 
 
@@ -23,6 +23,9 @@ class EditFragmentViewModel (
 
     fun getTranslation() = translation
 
+    /**
+     * Adds the translation from the database as a Source to the property of the class
+     */
     init {
         translation.addSource(database.getTranslationByKey(translationKey), translation::setValue)
     }
@@ -35,12 +38,13 @@ class EditFragmentViewModel (
     val showSnackbarEventSuccess : LiveData<Boolean>
         get() = _showSnackBarEventSuccess
 
-    private var _showSnackBarEventFail = MutableLiveData<Boolean>()
-    val showSnackbarEventFail : LiveData<Boolean>
-        get() = _showSnackBarEventFail
 
-
-
+    /**
+     * Updates the translation with the values provided by the user.
+     * @param gerWord the german translation.
+     * @param esWord the spanish translation.
+     * @param info the info to the translation.
+     */
     fun updateClicked(gerWord : String, esWord: String, info : String) {
         _updateIsClicked.value = true
         if(gerWord == translation.value!!.wordGer && esWord == translation.value!!.wordES && info == translation.value!!.info) {
