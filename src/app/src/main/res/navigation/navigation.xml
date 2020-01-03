@@ -68,11 +68,18 @@
         <action
             android:id="@+id/action_endFragment_to_editFragment"
             app:destination="@id/editFragment" />
+        <argument
+            android:name="keys"
+            app:argType="long[]" />
+        <argument
+            android:name="points"
+            app:argType="integer" />
     </fragment>
     <fragment
         android:id="@+id/editFragment"
         android:name="com.example.geres_trainer.screens.edit.EditFragment"
-        android:label="EditFragment">
+        android:label="EditFragment"
+        tools:layout="@layout/edit_fragment">
         <action
             android:id="@+id/action_editFragment_to_viewFragment"
             app:destination="@id/viewFragment" />

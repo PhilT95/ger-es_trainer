@@ -6,7 +6,6 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.view.inputmethod.EditorInfo
-import androidx.core.os.bundleOf
 import androidx.databinding.DataBindingUtil
 import androidx.fragment.app.Fragment
 import androidx.lifecycle.Observer
@@ -15,7 +14,6 @@ import androidx.navigation.fragment.findNavController
 import com.example.geres_trainer.R
 import com.example.geres_trainer.database.TranslationDB
 import com.example.geres_trainer.databinding.GameFragmentBinding
-import com.example.geres_trainer.util.keyToStringEncoder
 import com.google.android.material.snackbar.Snackbar
 
 class GameFragment : Fragment() {
@@ -72,17 +70,28 @@ class GameFragment : Fragment() {
             }
         }
 
+
+        /**
+         * Observes the variable that tells the game if it is over and should go to the EndFragment
+         */
         gameFragmentViewModel.gameIsDone.observe(this, Observer {
-           val bundle : Bundle = bundleOf("keys" to keyToStringEncoder(gameFragmentViewModel.wrongTranslations), "points" to gameFragmentViewModel.points)
-            this.findNavController().navigate(R.id.action_gameFragment_to_endFragment,bundle)
+            this.findNavController().navigate(
+                GameFragmentDirections
+                    .actionGameFragmentToEndFragment(gameFragmentViewModel.wrongTranslations.toLongArray(),gameFragmentViewModel.points)
+            )
+
         })
 
+        /**
+         * Observes the variable responsible for telling the game that the list is filled since the list filling is threaded.
+         */
         gameFragmentViewModel.listIsFilled.observe(this, Observer {
             if(it && !gameFragmentViewModel.gameIsAlreadyRunning) {
                 gameFragmentViewModel.startGame()
             }
 
         })
+
 
         gameFragmentViewModel.showSnackBarCorrect.observe(this, Observer {
             if (it == true) {

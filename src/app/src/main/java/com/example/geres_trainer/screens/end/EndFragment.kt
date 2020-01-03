@@ -14,7 +14,6 @@ import com.example.geres_trainer.database.TranslationDB
 import com.example.geres_trainer.databinding.EndFragmentBinding
 import com.example.geres_trainer.util.adapter.TranslationAdapter
 import com.example.geres_trainer.util.adapter.TranslationListener
-import com.example.geres_trainer.util.keyToListDecoder
 
 class EndFragment : Fragment() {
 
@@ -31,10 +30,11 @@ class EndFragment : Fragment() {
         val application = requireNotNull(this.activity).application
         val dataSource = TranslationDB.getInstance(application).translationDBDao
 
-        val points = arguments?.get("points").toString().toInt()
+        val arguments = EndFragmentArgs.fromBundle(arguments!!)
+        val points = arguments.points
         val pointsPercent : Float = (points.toFloat()/resources.getInteger(R.integer.defaultGameSize).toFloat())
 
-        val viewModelFactory = EndFragmentViewModelFactory(dataSource, keyToListDecoder(arguments?.get("keys").toString()), application)
+        val viewModelFactory = EndFragmentViewModelFactory(dataSource, arguments.keys.toList(), application)
 
         val endFragmentViewModel =
             ViewModelProviders.of(
