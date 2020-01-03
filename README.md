@@ -1,7 +1,7 @@
 # German-Spanisch Vocabular Trainer
-Last updated on Sunday, 29. December 2019 09:47PM 
+Last updated on Sunday, Saturday, 04. January 2020 12:21AM 
   
-**Game Version 1.1.0**
+**Game Version 1.1.1**
 
 
 ## What is the app about?
