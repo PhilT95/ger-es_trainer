@@ -4,7 +4,10 @@ import android.widget.TextView
 import androidx.databinding.BindingAdapter
 import com.example.geres_trainer.database.Translation
 
-
+/**
+ * These functions are bound to the corresponding layout element of the RecyclerView.
+ * They define which part of the translation should be displayed where in the layout.
+ */
 
 
 @BindingAdapter("translationGermanString")

@@ -15,6 +15,10 @@ import com.example.geres_trainer.databinding.TitleFragmentBinding
 import com.google.android.material.snackbar.Snackbar
 
 
+/**
+ * This class provides the Fragment for the Title screen. This is the first screen the user can see.
+ * The only thing this Fragment does  itself besides being the navigation hub, is providing the database reset function.
+ */
 class TitleFragment : Fragment () {
 
     override fun onCreateView(
@@ -54,13 +58,14 @@ class TitleFragment : Fragment () {
         }
 
 
-
-
+        /**
+         * Observes the showSnackbarEvent variable and displays the corresponding SnackBar when changed to true.
+         */
         titleFragmentViewModel.showSnackbarEvent.observe(this, Observer {
             if (it == true) {
                 Snackbar.make(
                     activity!!.findViewById(android.R.id.content),
-                    getString(R.string.dataBaseCleared_text),
+                    getString(R.string.dataBaseReset_text),
                     Snackbar.LENGTH_SHORT
                 ).show()
 
@@ -69,6 +74,11 @@ class TitleFragment : Fragment () {
             }
         })
 
+        /**
+         * Observes the databaseReset variable that gets changed when the resetDatabase button is clicked.
+         * Triggers the deleteDatabase function. The database gets populated through its own onCreate() function.
+         *
+         */
         titleFragmentViewModel.databaseReset.observe(this, Observer {
             if(it == true){
                 titleFragmentViewModel.deleteDatabase(this.context!!)

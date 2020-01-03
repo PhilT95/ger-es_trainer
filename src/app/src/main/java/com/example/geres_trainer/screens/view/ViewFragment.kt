@@ -17,6 +17,10 @@ import com.example.geres_trainer.util.adapter.TranslationAdapter
 import com.example.geres_trainer.util.adapter.TranslationListener
 
 
+/**
+ * This class also implements the SearchView.OnQueryTextListener class.
+ * Through this implementation this class itself can be added as an OnQueryTextListener for the search.
+ */
 class ViewFragment : Fragment (), SearchView.OnQueryTextListener{
 
 
@@ -42,10 +46,8 @@ class ViewFragment : Fragment (), SearchView.OnQueryTextListener{
 
         binding.viewFragmentViewModel = viewFragmentViewModel
 
+        //Tells the fragment that it needs to enable the options menu on the top.
         setHasOptionsMenu(true)
-
-
-
         binding.setLifecycleOwner(this)
 
 
@@ -72,6 +74,10 @@ class ViewFragment : Fragment (), SearchView.OnQueryTextListener{
             }
         })
 
+        /**
+         * This Observer submits a list to the RecyclerViewAdapter.
+         * It submits either the original list with all translations or a filtered list based on the search string entered by the user.
+         */
         searchText.observe(this, Observer {searchString ->
             searchString?.let {
                 if(searchString == ""){
@@ -80,19 +86,19 @@ class ViewFragment : Fragment (), SearchView.OnQueryTextListener{
                 else{
                     val list = viewFragmentViewModel.searchTranslations(searchString)
                     adapter.submitList(list)
-
-
                 }
 
             }
         })
-
-
-
-
         return binding.root
     }
 
+
+    /**
+     * This option is called when the setHasOptionsMenu option of the Fragment is set to true,
+     * through the setHasOptionsMenu(true) function. It inflates an menu that is designed in an layout xml file.
+     * Since since Fragment class implements the SearchView.OnQueryListener it can be added to the SearchView object itself.
+     */
     override fun onCreateOptionsMenu(menu: Menu, inflater: MenuInflater){
         inflater.inflate(R.menu.search_menu, menu)
 
@@ -104,22 +110,24 @@ class ViewFragment : Fragment (), SearchView.OnQueryTextListener{
             searchView.setQuery("",true)
             true
         }
-
-
-
         super.onCreateOptionsMenu(menu, inflater)
-
-
-
-
     }
 
+    /**
+     * This function is called each time the search text is changed.
+     * Since I want to use the search text in the ViewModel I need to pass it to the onCreateView() function of the Fragment.
+     * There I have implemented an observer for the searchText variable so I can react on the change that this function is providing.
+     */
     override fun onQueryTextChange(newText: String?): Boolean {
         searchText.value = newText
         return true
-
     }
 
+    /**
+     * This function needs to be implemented, but I personally think its more intuitive if the app
+     * updates the search with every letter entered by the user instead of him hitting the submit button.
+     * That is the reason this function doesn't do anything more.
+     */
     override fun onQueryTextSubmit(query: String?): Boolean {
         return false
     }

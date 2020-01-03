@@ -6,7 +6,6 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.view.inputmethod.EditorInfo
-import androidx.core.os.bundleOf
 import androidx.databinding.DataBindingUtil
 import androidx.fragment.app.Fragment
 import androidx.lifecycle.Observer
@@ -15,7 +14,6 @@ import androidx.navigation.fragment.findNavController
 import com.example.geres_trainer.R
 import com.example.geres_trainer.database.TranslationDB
 import com.example.geres_trainer.databinding.GameFragmentBinding
-import com.example.geres_trainer.util.keyToStringEncoder
 import com.google.android.material.snackbar.Snackbar
 
 class GameFragment : Fragment() {
@@ -41,13 +39,12 @@ class GameFragment : Fragment() {
 
         var buttonClicked = false
 
-
-
         binding.gameFragmentViewModel = gameFragmentViewModel
 
 
-
-
+        /**
+         * This Listener provides the logic when the ConfirmAnswerButton is clicked.
+         */
         binding.comfirmAnswerButton.setOnClickListener {
             buttonClicked = true
             gameFragmentViewModel.onConfirmClick(binding.answerTextField.text.toString())
@@ -56,6 +53,10 @@ class GameFragment : Fragment() {
             buttonClicked = false
         }
 
+        /**
+         * This Listener is used to allow the user to confirm his answer with the enter button of his virtual keyboard.
+         * It also closes the keyboard after pressing the enter button.
+         */
         binding.answerTextField.setOnEditorActionListener {_, actionId, _ ->
             return@setOnEditorActionListener when (actionId) {
                 EditorInfo.IME_ACTION_DONE -> {
@@ -69,17 +70,28 @@ class GameFragment : Fragment() {
             }
         }
 
+
+        /**
+         * Observes the variable that tells the game if it is over and should go to the EndFragment
+         */
         gameFragmentViewModel.gameIsDone.observe(this, Observer {
-           val bundle : Bundle = bundleOf("keys" to keyToStringEncoder(gameFragmentViewModel.wrongTranslations), "points" to gameFragmentViewModel.points)
-            this.findNavController().navigate(R.id.action_gameFragment_to_endFragment,bundle)
+            this.findNavController().navigate(
+                GameFragmentDirections
+                    .actionGameFragmentToEndFragment(gameFragmentViewModel.wrongTranslations.toLongArray(),gameFragmentViewModel.points)
+            )
+
         })
 
+        /**
+         * Observes the variable responsible for telling the game that the list is filled since the list filling is threaded.
+         */
         gameFragmentViewModel.listIsFilled.observe(this, Observer {
-            if(gameFragmentViewModel.listIsFilled.value == true) {
+            if(it && !gameFragmentViewModel.gameIsAlreadyRunning) {
                 gameFragmentViewModel.startGame()
             }
 
         })
+
 
         gameFragmentViewModel.showSnackBarCorrect.observe(this, Observer {
             if (it == true) {
@@ -113,6 +125,9 @@ class GameFragment : Fragment() {
 
         gameFragmentViewModel.initRandomGame()
 
+        /**
+         *  Used to start and stop the timer on specific lifecycle events
+         */
         lifecycle.addObserver(gameFragmentViewModel)
 
 

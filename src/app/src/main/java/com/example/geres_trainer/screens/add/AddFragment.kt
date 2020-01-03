@@ -36,6 +36,10 @@ class AddFragment :  Fragment () {
             ViewModelProviders.of(
                 this, viewModelFactory).get(AddFragmentViewModel::class.java)
 
+
+        /**
+         * Clears the text of all text fields in the add fragment.
+         */
         fun clearTextFields() {
             binding.gerTextField.setText("")
             binding.esTextField.setText("")
@@ -48,6 +52,10 @@ class AddFragment :  Fragment () {
         }
 
 
+        /**
+         * Creates listener to every change of the gerTextField through an TextWatcher.
+         * Executes the ViewModels checkState() function when change appears.
+         */
         binding.gerTextField.addTextChangedListener(object : TextWatcher {
             override fun afterTextChanged(s: Editable?) {
                 addFragmentViewModel.checkState(gerTextField.text.toString(), esTextField.text.toString())
@@ -62,6 +70,10 @@ class AddFragment :  Fragment () {
             }
         })
 
+        /**
+         * Creates listener to every change of the esTextField through an TextWatcher.
+         * Executes the ViewModels checkState() function when change appears.
+         */
         binding.esTextField.addTextChangedListener(object : TextWatcher {
             override fun afterTextChanged(s: Editable?) {
                 addFragmentViewModel.checkState(gerTextField.text.toString(), esTextField.text.toString())
@@ -79,9 +91,13 @@ class AddFragment :  Fragment () {
 
 
         addFragmentViewModel.canAddTranslation.observe(this, Observer {
-            binding.addButton.isEnabled = addFragmentViewModel.canAddTranslation.value!!
+            binding.addButton.isEnabled = it
         })
 
+
+        /**
+         * Displays a Snackbar if the word was added successfully.
+         */
         addFragmentViewModel.showSnackbarEventSuccess.observe(this, Observer {
             if(it == true) {
                 val snackbar = Snackbar.make(
@@ -98,6 +114,9 @@ class AddFragment :  Fragment () {
             }
         })
 
+        /**
+         * Displays a Snackbar if an error occurs.
+         */
         addFragmentViewModel.showSnackbarEventFail.observe(this, Observer {
             if(it == true) {
                 val snackbar = Snackbar.make(
@@ -112,6 +131,10 @@ class AddFragment :  Fragment () {
             }
         })
 
+
+        /**
+         * Displays a Snackbar that states that either of the translations of a word contain a illegal symbol.
+         */
         addFragmentViewModel.showSnackBarEventIllegalSymbol.observe(this, Observer {
             if(it == true){
                 val snackbar = Snackbar.make(

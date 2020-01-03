@@ -25,9 +25,13 @@ class ViewFragmentViewModel (
         _navigateToEdit.value = null
     }
 
-     fun searchTranslations(searchString: String) : List<Translation>? {
+    /**
+     * This function applies the provided searchString as a filter on the translation list.
+     * Using this method means not accessing the database again.
+     */
+    fun searchTranslations(searchString: String) : List<Translation>? {
 
-         return translations.value!!.filter { it.wordGer.contains(searchString, true) || it.wordES.contains(searchString, true)  }
+        return translations.value!!.filter { it.wordGer.contains(searchString, true) || it.wordES.contains(searchString, true)  }
 
 
 

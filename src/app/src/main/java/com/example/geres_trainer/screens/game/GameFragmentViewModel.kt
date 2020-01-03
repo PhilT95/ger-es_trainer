@@ -16,9 +16,10 @@ class GameFragmentViewModel (
     application: Application) : AndroidViewModel(application), LifecycleObserver {
 
 
+
     private val viewModelJob = Job()
     private val uiScope = CoroutineScope(Dispatchers.Main + viewModelJob)
-
+   var gameIsAlreadyRunning = false
 
 
     private var _listIsFilled = MutableLiveData<Boolean>()
@@ -71,39 +72,26 @@ class GameFragmentViewModel (
 
 
 
-
-
-
-
-
     private val timer = object : CountDownTimerPausable(gameTime.toLong(), 1000) {
+
         override fun onTick(millisUntilFinished: Long) {
             _timerText.value = (millisUntilFinished/1000).toString() + " seconds left"
 
         }
-
-
         override fun onFinish() {
            gameFinish()
         }
     }
 
 
-
-
-
-
-
-
-
-
-
-
-
+    /**
+     * Does the logic when an answer gets confirmed.
+     * @param userAnswer the answer the user submitted.
+     */
     fun onConfirmClick (userAnswer : String) {
         _gameProgress.value = _gameProgress.value!! + 1
         if(wordCounter < gameSize) {
-            if(answerWord == userAnswer.replace(" ","")) {
+            if(answerWord == userAnswer.trim()) {
                 points++
                 updatePointText()
                 _showSnackBarCorrect.value = true
@@ -112,44 +100,53 @@ class GameFragmentViewModel (
             else {
                 updatePointText()
                 _showSnackBarFalse.value = true
-                wrongTranslations.add(randomList.get(wordCounter).translationID)
+                wrongTranslations.add(randomList.get(wordCounter-1).translationID)
                 newWord()
             }
         }
         else {
-            if (answerWord == userAnswer.replace(" ","")) {
+            if (answerWord == userAnswer.trim()) {
                 points++
             }
             else {
-                wrongTranslations.add(randomList.get(wordCounter).translationID)
+                wrongTranslations.add(randomList.get(wordCounter-1).translationID)
             }
             gameFinish()
 
         }
-
-
-
     }
+
 
     private fun updatePointText () {
         _pointsText.value = points.toString() + "\t/" + "\t" + gameSize.toString()
     }
 
 
-
-
+    /**
+     * This function is used to initialize everything for the game.
+     * With the gameIsAlreadyRunning variable a safe guard was added.
+     * This way configuration changes of the device are caught and handled.
+     */
     fun initRandomGame () {
-        _listIsFilled.value = false
-        _gameProgress.value = 0
-        updatePointText()
-        onInit()
+        if (!gameIsAlreadyRunning) {
+            _listIsFilled.value = false
+            _gameProgress.value = 0
+            updatePointText()
+            onInit()
+
+        }
+
 
     }
 
+    /**
+     * Creates a shuffled list of all database entries and puts it into the randomList variable.
+     * To notify the Fragment of this change the _listIsFilled variable is set to true.
+     */
     private suspend fun initRandomList () {
         var list = emptyList<Translation>()
         withContext(Dispatchers.IO) {
-            list = database.getAllTranslationsNotLive().shuffled()
+            list = database.getAllTranslationsNotLive().shuffled().subList(0,6)
         }
         randomList = list
         _listIsFilled.value = true
@@ -162,6 +159,7 @@ class GameFragmentViewModel (
     }
 
     fun startGame() {
+        gameIsAlreadyRunning = true
         timer.start()
         newWord()
     }
@@ -189,6 +187,7 @@ class GameFragmentViewModel (
 
     private fun gameFinish() {
         _gameIsDone.value = true
+        gameIsAlreadyRunning = false
     }
 
     override fun onCleared() {
@@ -198,12 +197,20 @@ class GameFragmentViewModel (
     }
 
 
+    /**
+     * This function is bound to the LifeCycle-Stop Event.
+     * It pauses the CountDownTimer
+     */
     @OnLifecycleEvent(Lifecycle.Event.ON_STOP)
     fun stopTimer(){
         timer.pause()
 
     }
 
+    /**
+     * This function is bound to the LifeCycle-Resume Event.
+     * It resumes the CountDownTimer
+     */
     @OnLifecycleEvent(Lifecycle.Event.ON_RESUME)
     fun resumeTimer(){
 
