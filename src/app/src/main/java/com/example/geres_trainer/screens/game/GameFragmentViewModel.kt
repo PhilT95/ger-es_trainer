@@ -19,7 +19,7 @@ class GameFragmentViewModel (
 
     private val viewModelJob = Job()
     private val uiScope = CoroutineScope(Dispatchers.Main + viewModelJob)
-    private var gameIsAlreadyRunning = false
+   var gameIsAlreadyRunning = false
 
 
     private var _listIsFilled = MutableLiveData<Boolean>()
@@ -91,7 +91,7 @@ class GameFragmentViewModel (
     fun onConfirmClick (userAnswer : String) {
         _gameProgress.value = _gameProgress.value!! + 1
         if(wordCounter < gameSize) {
-            if(answerWord == userAnswer.replace(" ","")) {
+            if(answerWord == userAnswer.trim()) {
                 points++
                 updatePointText()
                 _showSnackBarCorrect.value = true
@@ -100,16 +100,16 @@ class GameFragmentViewModel (
             else {
                 updatePointText()
                 _showSnackBarFalse.value = true
-                wrongTranslations.add(randomList.get(wordCounter).translationID)
+                wrongTranslations.add(randomList.get(wordCounter-1).translationID)
                 newWord()
             }
         }
         else {
-            if (answerWord == userAnswer.replace(" ","")) {
+            if (answerWord == userAnswer.trim()) {
                 points++
             }
             else {
-                wrongTranslations.add(randomList.get(wordCounter).translationID)
+                wrongTranslations.add(randomList.get(wordCounter-1).translationID)
             }
             gameFinish()
 
@@ -133,7 +133,7 @@ class GameFragmentViewModel (
             _gameProgress.value = 0
             updatePointText()
             onInit()
-            gameIsAlreadyRunning = true
+
         }
 
 
@@ -146,7 +146,7 @@ class GameFragmentViewModel (
     private suspend fun initRandomList () {
         var list = emptyList<Translation>()
         withContext(Dispatchers.IO) {
-            list = database.getAllTranslationsNotLive().shuffled()
+            list = database.getAllTranslationsNotLive().shuffled().subList(0,6)
         }
         randomList = list
         _listIsFilled.value = true
@@ -159,6 +159,7 @@ class GameFragmentViewModel (
     }
 
     fun startGame() {
+        gameIsAlreadyRunning = true
         timer.start()
         newWord()
     }

@@ -78,7 +78,7 @@ class GameFragment : Fragment() {
         })
 
         gameFragmentViewModel.listIsFilled.observe(this, Observer {
-            if(gameFragmentViewModel.listIsFilled.value == true) {
+            if(it && !gameFragmentViewModel.gameIsAlreadyRunning) {
                 gameFragmentViewModel.startGame()
             }
 
