@@ -1,5 +1,5 @@
 <resources>
-    <string name="app_name">German-Spanish Trainer</string>
+    <string name="app_name">GER-ES Vocable Trainer</string>
     <string name="startButton_text">Start Game</string>
     <string name="addWordButton_text">Add Word</string>
     <string name="viewWordsButton_text">View Words</string>
@@ -24,4 +24,12 @@
     <string name="infoTitleTextView_text">Info</string>
     <string name="updateButton_text">Update</string>
     <string name="translationUpdatedSuccess_message">The Translation has been updated successfully!</string>
+    <string name="addTranslationMenu_text">Add Translation</string>
+    <string name="viewTranslationsMenu_text">View Translations</string>
+    <string name="resetDBMenu_text">Reset database</string>
+    <string name="aboutMenu_text">About</string>
+    <string name="aboutTitle_text">About</string>
+    <string name="appVersion_text">Version 1.2.0</string>
+    <string name="appLicense_text">This app is licensed under tho GNU General Public License v3.0</string>
+    <string name="about_text">This App is a simple way of learning vocables. It is meant to be used for either spanish or german speaking people.</string>
 </resources>

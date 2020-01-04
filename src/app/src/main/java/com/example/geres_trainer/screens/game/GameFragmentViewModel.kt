@@ -42,7 +42,7 @@ class GameFragmentViewModel (
 
 
 
-    private val gameSize = application.resources.getInteger(R.integer.defaultGameSize)
+    var gameSize = application.resources.getInteger(R.integer.defaultGameSize)
     private val gameTimeDefault = application.resources.getInteger(R.integer.defaultTimeMilli)
     private var gameTime : Long = gameTimeDefault.toLong()
 
@@ -146,7 +146,7 @@ class GameFragmentViewModel (
     private suspend fun initRandomList () {
         var list = emptyList<Translation>()
         withContext(Dispatchers.IO) {
-            list = database.getAllTranslationsNotLive().shuffled().subList(0,6)
+            list = database.getAllTranslationsNotLive().shuffled().subList(0,gameSize)
         }
         randomList = list
         _listIsFilled.value = true

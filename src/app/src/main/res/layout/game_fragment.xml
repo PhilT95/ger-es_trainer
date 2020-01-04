@@ -88,7 +88,7 @@
             android:layout_height="wrap_content"
             android:clickable="false"
             android:indeterminate="false"
-            android:max="@integer/defaultGameSize"
+            android:max="@{gameFragmentViewModel.gameSize}"
             android:progress="@{gameFragmentViewModel.gameProgress}"
             app:layout_constraintBottom_toTopOf="@+id/comfirmAnswerButton"
             app:layout_constraintEnd_toEndOf="parent"

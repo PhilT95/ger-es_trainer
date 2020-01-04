@@ -39,7 +39,10 @@ class GameFragment : Fragment() {
 
         var buttonClicked = false
 
+        val arguments = GameFragmentArgs.fromBundle(arguments!!)
+
         binding.gameFragmentViewModel = gameFragmentViewModel
+        gameFragmentViewModel.gameSize = arguments.gameLength
 
 
         /**
@@ -77,7 +80,7 @@ class GameFragment : Fragment() {
         gameFragmentViewModel.gameIsDone.observe(this, Observer {
             this.findNavController().navigate(
                 GameFragmentDirections
-                    .actionGameFragmentToEndFragment(gameFragmentViewModel.wrongTranslations.toLongArray(),gameFragmentViewModel.points)
+                    .actionGameFragmentToEndFragment(gameFragmentViewModel.wrongTranslations.toLongArray(),gameFragmentViewModel.points, gameFragmentViewModel.gameSize)
             )
 
         })

@@ -19,6 +19,8 @@ class EndFragment : Fragment() {
 
 
 
+
+
     override fun onCreateView(
         inflater: LayoutInflater,
         container: ViewGroup?,
@@ -32,7 +34,8 @@ class EndFragment : Fragment() {
 
         val arguments = EndFragmentArgs.fromBundle(arguments!!)
         val points = arguments.points
-        val pointsPercent : Float = (points.toFloat()/resources.getInteger(R.integer.defaultGameSize).toFloat())
+        val gameLength = arguments.gameLength
+        val pointsPercent : Float = (points.toFloat()/gameLength.toFloat())
 
         val viewModelFactory = EndFragmentViewModelFactory(dataSource, arguments.keys.toList(), application)
 
@@ -59,7 +62,10 @@ class EndFragment : Fragment() {
 
 
         binding.playAgainButton.setOnClickListener {
-            this.findNavController().navigate(R.id.action_endFragment_to_gameFragment)
+            this.findNavController().navigate(
+                EndFragmentDirections
+                    .actionEndFragmentToGameFragment(gameLength)
+            )
         }
 
         binding.goToTitleButton.setOnClickListener {

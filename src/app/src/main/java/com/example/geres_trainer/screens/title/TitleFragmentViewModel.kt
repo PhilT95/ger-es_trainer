@@ -35,6 +35,15 @@ class TitleFragmentViewModel (
     val databaseReset : LiveData<Boolean>
         get() = _databaseReset
 
+    private var _gameLengthSelectorText = MutableLiveData<String>()
+    val gameLengthSelectorText : LiveData<String>
+        get() = _gameLengthSelectorText
+
+    fun updateText(str : String) {
+        _gameLengthSelectorText.value = "Current game length: $str"
+    }
+
+
 
 
 

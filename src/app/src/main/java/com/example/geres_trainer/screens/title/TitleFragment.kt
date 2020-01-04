@@ -1,11 +1,11 @@
 package com.example.geres_trainer.screens.title
 
 import android.os.Bundle
-import android.view.LayoutInflater
-import android.view.View
-import android.view.ViewGroup
+import android.view.*
+import android.widget.SeekBar
 import androidx.databinding.DataBindingUtil
 import androidx.fragment.app.Fragment
+import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.Observer
 import androidx.lifecycle.ViewModelProviders
 import androidx.navigation.fragment.findNavController
@@ -20,6 +20,10 @@ import com.google.android.material.snackbar.Snackbar
  * The only thing this Fragment does  itself besides being the navigation hub, is providing the database reset function.
  */
 class TitleFragment : Fragment () {
+
+
+    private var resetDB = MutableLiveData<Boolean>()
+    private var gameLength = 5
 
     override fun onCreateView(
         inflater: LayoutInflater,
@@ -40,22 +44,32 @@ class TitleFragment : Fragment () {
                 this, viewModelFactory).get(TitleFragmentViewModel::class.java)
 
         binding.titleFragmentViewModel = titleFragmentViewModel
+        titleFragmentViewModel.updateText(gameLength.toString())
 
+        setHasOptionsMenu(true)
         binding.setLifecycleOwner(this)
 
-
         binding.playGameButton.setOnClickListener {
-            this.findNavController().navigate(R.id.action_titleFragment_to_gameFragment)
-
+            findNavController().navigate(
+                TitleFragmentDirections
+                    .actionTitleFragmentToGameFragment(gameLength)
+            )
         }
 
-        binding.viewWordsButton.setOnClickListener {
-            this.findNavController().navigate(R.id.action_titleFragment_to_viewFragment)
-        }
+        binding.gameLengthSelector.setOnSeekBarChangeListener(object : SeekBar.OnSeekBarChangeListener {
+            override fun onProgressChanged(seekBar: SeekBar?, progress: Int, fromUser: Boolean) {
+                gameLength = progress+5
+                titleFragmentViewModel.updateText(gameLength.toString())
+            }
 
-        binding.newWordButton.setOnClickListener {
-            this.findNavController().navigate(R.id.action_titleFragment_to_addFragment)
-        }
+            override fun onStartTrackingTouch(seekBar: SeekBar?) {
+
+            }
+
+            override fun onStopTrackingTouch(seekBar: SeekBar?) {
+
+            }
+        })
 
 
         /**
@@ -85,8 +99,41 @@ class TitleFragment : Fragment () {
             }
         })
 
+        resetDB.observe(this, Observer {
+            if(it == true){
+                titleFragmentViewModel.onClear()
+            }
+        })
+
 
         return binding.root
+    }
+
+    override fun onCreateOptionsMenu(menu: Menu, inflater: MenuInflater){
+        inflater.inflate(R.menu.main_menu, menu)
+        super.onCreateOptionsMenu(menu, inflater)
+    }
+
+    override fun onOptionsItemSelected(item: MenuItem?): Boolean {
+
+        when(item!!.itemId){
+            R.id.addWord -> findNavController().navigate(
+                TitleFragmentDirections
+                    .actionTitleFragmentToAddFragment()
+                )
+            R.id.viewWord -> findNavController().navigate(
+                TitleFragmentDirections
+                    .actionTitleFragmentToViewFragment()
+            )
+            R.id.about -> findNavController().navigate(
+                TitleFragmentDirections
+                    .actionTitleFragmentToAboutFragment()
+            )
+            R.id.resetDB -> resetDB.value = true
+        }
+
+
+        return super.onOptionsItemSelected(item)
     }
 
 
