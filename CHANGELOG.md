@@ -2,12 +2,18 @@
 If you want to find out what happend since the last update you got, this is the place to go!
 
 
+## Release v1.2.0 . 2020/01/05
+- Added About page
+- Added Slider for selecting own game length
+- Reworked Main Menu
+	- Moved options to menu bar
+	- Slider added here
+
+
 ## Release v1.1.1 - 2020/01/04
 - Fixed some bugs with configuration changes
 - Updated code documentation
 - Added more data to database
-
-
 
 ## Release v1.1.0 - 2019/12/29
 - Rework of technique to display translations

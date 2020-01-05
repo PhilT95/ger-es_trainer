@@ -5,8 +5,8 @@ import android.database.sqlite.SQLiteConstraintException
 import androidx.lifecycle.AndroidViewModel
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
-import com.example.geres_trainer.database.Translation
-import com.example.geres_trainer.database.TranslationDBDao
+import com.example.geres_trainer.database.translation.Translation
+import com.example.geres_trainer.database.translation.TranslationDBDao
 import kotlinx.coroutines.*
 
 class AddFragmentViewModel (
@@ -50,7 +50,8 @@ class AddFragmentViewModel (
         var didWork = false
         var containsIllegalSymbol = false
         withContext(Dispatchers.IO) {
-            val newTranslation = Translation()
+            val newTranslation =
+                Translation()
             newTranslation.wordGer = gerWord.trim()
             newTranslation.wordES = esWord.trim()
             newTranslation.info = info

@@ -11,7 +11,7 @@ import androidx.lifecycle.Observer
 import androidx.lifecycle.ViewModelProviders
 import androidx.navigation.fragment.findNavController
 import com.example.geres_trainer.R
-import com.example.geres_trainer.database.TranslationDB
+import com.example.geres_trainer.database.translation.TranslationDB
 import com.example.geres_trainer.databinding.ViewFragmentBinding
 import com.example.geres_trainer.util.adapter.TranslationAdapter
 import com.example.geres_trainer.util.adapter.TranslationListener

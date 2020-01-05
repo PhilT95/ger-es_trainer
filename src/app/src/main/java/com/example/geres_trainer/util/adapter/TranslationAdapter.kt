@@ -5,7 +5,7 @@ import android.view.ViewGroup
 import androidx.recyclerview.widget.DiffUtil
 import androidx.recyclerview.widget.ListAdapter
 import androidx.recyclerview.widget.RecyclerView
-import com.example.geres_trainer.database.Translation
+import com.example.geres_trainer.database.translation.Translation
 import com.example.geres_trainer.databinding.ListItemTranslationBinding
 
 

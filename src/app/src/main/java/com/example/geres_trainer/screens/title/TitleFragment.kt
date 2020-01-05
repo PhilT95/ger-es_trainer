@@ -10,7 +10,8 @@ import androidx.lifecycle.Observer
 import androidx.lifecycle.ViewModelProviders
 import androidx.navigation.fragment.findNavController
 import com.example.geres_trainer.R
-import com.example.geres_trainer.database.TranslationDB
+import com.example.geres_trainer.database.config.ConfigurationDB
+import com.example.geres_trainer.database.translation.TranslationDB
 import com.example.geres_trainer.databinding.TitleFragmentBinding
 import com.google.android.material.snackbar.Snackbar
 
@@ -23,7 +24,6 @@ class TitleFragment : Fragment () {
 
 
     private var resetDB = MutableLiveData<Boolean>()
-    private var gameLength = 5
 
     override fun onCreateView(
         inflater: LayoutInflater,
@@ -37,14 +37,19 @@ class TitleFragment : Fragment () {
 
         val dataSource = TranslationDB.getInstance(application).translationDBDao
 
-        val viewModelFactory = TitleFragmentViewModelFactory(dataSource, application)
+        val configSource = ConfigurationDB.getInstance(application).configurationDAO
+
+        val viewModelFactory = TitleFragmentViewModelFactory(dataSource, configSource, application)
+
+
+
 
         val titleFragmentViewModel =
             ViewModelProviders.of(
                 this, viewModelFactory).get(TitleFragmentViewModel::class.java)
 
         binding.titleFragmentViewModel = titleFragmentViewModel
-        titleFragmentViewModel.updateText(gameLength.toString())
+
 
         setHasOptionsMenu(true)
         binding.setLifecycleOwner(this)
@@ -52,14 +57,16 @@ class TitleFragment : Fragment () {
         binding.playGameButton.setOnClickListener {
             findNavController().navigate(
                 TitleFragmentDirections
-                    .actionTitleFragmentToGameFragment(gameLength)
+                    .actionTitleFragmentToGameFragment(titleFragmentViewModel.getConfig().value!!.gameLength)
             )
         }
 
+
         binding.gameLengthSelector.setOnSeekBarChangeListener(object : SeekBar.OnSeekBarChangeListener {
             override fun onProgressChanged(seekBar: SeekBar?, progress: Int, fromUser: Boolean) {
-                gameLength = progress+5
-                titleFragmentViewModel.updateText(gameLength.toString())
+                titleFragmentViewModel.updateGameLength(progress+5)
+                titleFragmentViewModel.saveGameLength()
+
             }
 
             override fun onStartTrackingTouch(seekBar: SeekBar?) {
@@ -67,7 +74,6 @@ class TitleFragment : Fragment () {
             }
 
             override fun onStopTrackingTouch(seekBar: SeekBar?) {
-
             }
         })
 

@@ -4,7 +4,7 @@ import android.app.Application
 import androidx.lifecycle.Lifecycle
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.ViewModelProvider
-import com.example.geres_trainer.database.TranslationDBDao
+import com.example.geres_trainer.database.translation.TranslationDBDao
 import java.lang.IllegalArgumentException
 
 class GameFragmentViewModelFactory(

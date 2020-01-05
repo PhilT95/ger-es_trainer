@@ -3,8 +3,7 @@ package com.example.geres_trainer.screens.end
 import android.app.Application
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.ViewModelProvider
-import androidx.lifecycle.ViewModelProviders
-import com.example.geres_trainer.database.TranslationDBDao
+import com.example.geres_trainer.database.translation.TranslationDBDao
 import java.lang.IllegalArgumentException
 
 class EndFragmentViewModelFactory (

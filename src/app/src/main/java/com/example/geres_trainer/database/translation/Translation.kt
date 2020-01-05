@@ -1,4 +1,4 @@
-package com.example.geres_trainer.database
+package com.example.geres_trainer.database.translation
 
 import androidx.room.ColumnInfo
 import androidx.room.Entity

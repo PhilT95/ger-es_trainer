@@ -32,4 +32,5 @@
     <string name="appVersion_text">Version 1.2.0</string>
     <string name="appLicense_text">This app is licensed under tho GNU General Public License v3.0</string>
     <string name="about_text">This App is a simple way of learning vocables. It is meant to be used for either spanish or german speaking people.</string>
+    <string name="author_Text">App is written by Phil Trommer</string>
 </resources>

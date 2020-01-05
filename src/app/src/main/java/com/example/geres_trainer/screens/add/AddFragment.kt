@@ -11,7 +11,7 @@ import androidx.fragment.app.Fragment
 import androidx.lifecycle.Observer
 import androidx.lifecycle.ViewModelProviders
 import com.example.geres_trainer.R
-import com.example.geres_trainer.database.TranslationDB
+import com.example.geres_trainer.database.translation.TranslationDB
 import com.example.geres_trainer.databinding.AddFragmentBinding
 import com.google.android.material.snackbar.Snackbar
 import kotlinx.android.synthetic.main.add_fragment.*

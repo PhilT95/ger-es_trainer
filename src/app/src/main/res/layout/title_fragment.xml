@@ -33,11 +33,11 @@
             android:layout_height="wrap_content"
             android:layout_marginTop="8dp"
             android:max="15"
-            android:progress="0"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintHorizontal_bias="1.0"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/gameLengthSelectorView" />
+            app:layout_constraintTop_toBottomOf="@+id/gameLengthSelectorView"
+            app:configGameLengthSelectorProgress="@{titleFragmentViewModel.config}"/>
 
         <TextView
             android:id="@+id/gameLengthSelectorView"
@@ -45,9 +45,9 @@
             android:layout_height="wrap_content"
             android:layout_marginStart="8dp"
             android:layout_marginTop="32dp"
-            android:text="@{titleFragmentViewModel.gameLengthSelectorText}"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/playGameButton" />
+            app:layout_constraintTop_toBottomOf="@+id/playGameButton"
+            app:configGameLengthString="@{titleFragmentViewModel.config}"/>
 
     </androidx.constraintlayout.widget.ConstraintLayout>
 

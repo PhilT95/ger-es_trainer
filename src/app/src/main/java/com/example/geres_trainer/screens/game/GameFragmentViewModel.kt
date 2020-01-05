@@ -3,8 +3,8 @@ package com.example.geres_trainer.screens.game
 import android.app.Application
 import androidx.lifecycle.*
 import com.example.geres_trainer.R
-import com.example.geres_trainer.database.Translation
-import com.example.geres_trainer.database.TranslationDBDao
+import com.example.geres_trainer.database.translation.Translation
+import com.example.geres_trainer.database.translation.TranslationDBDao
 import com.example.geres_trainer.util.CountDownTimerPausable
 import kotlinx.coroutines.*
 import java.util.*
