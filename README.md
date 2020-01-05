@@ -11,7 +11,7 @@ The **master - Branch** is always the latest stable version.
 
 #### Where is the APK file?
 
-You can find the apk file [here](src/app/debug/app-debug.apk).
+You can find the apk file [here](src/app/release/app-release.apk).
 
 
 ### Features
