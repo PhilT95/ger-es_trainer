@@ -3,7 +3,7 @@ package com.example.geres_trainer.screens.end
 import android.app.Application
 import androidx.lifecycle.AndroidViewModel
 import androidx.lifecycle.MutableLiveData
-import com.example.geres_trainer.database.TranslationDBDao
+import com.example.geres_trainer.database.translation.TranslationDBDao
 
 
 class EndFragmentViewModel (

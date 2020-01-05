@@ -12,7 +12,7 @@ import androidx.lifecycle.Observer
 import androidx.lifecycle.ViewModelProviders
 import androidx.navigation.fragment.findNavController
 import com.example.geres_trainer.R
-import com.example.geres_trainer.database.TranslationDB
+import com.example.geres_trainer.database.translation.TranslationDB
 import com.example.geres_trainer.databinding.GameFragmentBinding
 import com.google.android.material.snackbar.Snackbar
 
@@ -39,7 +39,10 @@ class GameFragment : Fragment() {
 
         var buttonClicked = false
 
+        val arguments = GameFragmentArgs.fromBundle(arguments!!)
+
         binding.gameFragmentViewModel = gameFragmentViewModel
+        gameFragmentViewModel.gameSize = arguments.gameLength
 
 
         /**
@@ -77,7 +80,7 @@ class GameFragment : Fragment() {
         gameFragmentViewModel.gameIsDone.observe(this, Observer {
             this.findNavController().navigate(
                 GameFragmentDirections
-                    .actionGameFragmentToEndFragment(gameFragmentViewModel.wrongTranslations.toLongArray(),gameFragmentViewModel.points)
+                    .actionGameFragmentToEndFragment(gameFragmentViewModel.wrongTranslations.toLongArray(),gameFragmentViewModel.points, gameFragmentViewModel.gameSize)
             )
 
         })

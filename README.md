@@ -1,13 +1,17 @@
 # German-Spanisch Vocabular Trainer
-Last updated on Sunday, Saturday, 04. January 2020 12:21AM 
+Last updated on Sunday, 05. January 2020 06:09PM
   
-**Game Version 1.1.1**
+**Game Version 1.2.0**
 
 
 ## What is the app about?
 This App is a simple way of learning vocables. It is meant to be used for either spanish or german speaking people.  
 
-The **master - Branch** is always the latest stable version, development may have some critical bugs and is, as the title says, in *development*.
+The **master - Branch** is always the latest stable version.
+
+#### Where is the APK file?
+
+You can find the apk file [here](src/app/release/app-release.apk).
 
 
 ### Features

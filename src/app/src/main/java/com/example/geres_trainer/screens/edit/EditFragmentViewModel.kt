@@ -4,13 +4,14 @@ import androidx.lifecycle.LiveData
 import androidx.lifecycle.MediatorLiveData
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
-import com.example.geres_trainer.database.Translation
-import com.example.geres_trainer.database.TranslationDBDao
+import com.example.geres_trainer.database.translation.Translation
+import com.example.geres_trainer.database.translation.TranslationDBDao
 import kotlinx.coroutines.*
 
 class EditFragmentViewModel (
     translationKey: Long = 0L,
-    dataSource: TranslationDBDao) : ViewModel() {
+    dataSource: TranslationDBDao
+) : ViewModel() {
 
 
     val database = dataSource
@@ -58,6 +59,7 @@ class EditFragmentViewModel (
                     newTranslation.wordES = esWord
                     newTranslation.info = info
                     database.update(newTranslation)
+
 
 
                 }

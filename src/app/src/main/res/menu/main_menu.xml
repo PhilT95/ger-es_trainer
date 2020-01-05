@@ -1,0 +1,22 @@
+<?xml version="1.0" encoding="utf-8"?>
+<menu xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent">
+
+
+    <item
+        android:id="@+id/addWord"
+        android:title="@string/addTranslationMenu_text" />
+    <item
+        android:id="@+id/viewWord"
+        android:title="@string/viewTranslationsMenu_text" />
+    <item
+        android:id="@+id/resetDB"
+        android:title="@string/resetDBMenu_text" />
+    <item
+        android:id="@+id/about"
+        android:enabled="true"
+        android:title="@string/aboutMenu_text" />
+</menu>

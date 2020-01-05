@@ -2,11 +2,15 @@ package com.example.geres_trainer.screens.title
 
 import android.app.Application
 import android.content.Context
+import androidx.core.graphics.translationMatrix
 import androidx.lifecycle.AndroidViewModel
 import androidx.lifecycle.LiveData
+import androidx.lifecycle.MediatorLiveData
 import androidx.lifecycle.MutableLiveData
-import com.example.geres_trainer.database.TranslationDB
-import com.example.geres_trainer.database.TranslationDBDao
+import com.example.geres_trainer.database.config.Configuration
+import com.example.geres_trainer.database.config.ConfigurationDAO
+import com.example.geres_trainer.database.translation.TranslationDB
+import com.example.geres_trainer.database.translation.TranslationDBDao
 import kotlinx.coroutines.*
 
 
@@ -18,12 +22,19 @@ import kotlinx.coroutines.*
  */
 class TitleFragmentViewModel (
     val database: TranslationDBDao,
+    private val configDB: ConfigurationDAO,
     application: Application) : AndroidViewModel(application) {
 
     private val viewModelJob = Job ()
 
 
     private val uiScope = CoroutineScope(Dispatchers.Main + viewModelJob)
+
+    private val config = MediatorLiveData<Configuration>()
+
+    fun getConfig() = config
+
+    var gameLength = 0
 
     private var _showSnackBarEvent = MutableLiveData<Boolean>()
 
@@ -36,6 +47,31 @@ class TitleFragmentViewModel (
         get() = _databaseReset
 
 
+    init {
+        config.addSource(configDB.getConfiguration(), config::setValue)
+    }
+
+
+
+    fun updateGameLength(int : Int) {
+        gameLength = int
+    }
+
+
+    private suspend fun onSaveGameLength(){
+        withContext(Dispatchers.IO){
+            val newConfig = config.value ?: return@withContext
+            //val id = config.value!!.configID
+            newConfig.gameLength = gameLength
+            configDB.update(newConfig)
+        }
+    }
+
+    fun saveGameLength(){
+        uiScope.launch {
+            onSaveGameLength()
+        }
+    }
 
 
 

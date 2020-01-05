@@ -17,6 +17,9 @@
             android:id="@+id/action_gameFragment_to_endFragment"
             app:destination="@id/endFragment"
             app:popUpTo="@id/titleFragment" />
+        <argument
+            android:name="gameLength"
+            app:argType="integer" />
     </fragment>
     <fragment
         android:id="@+id/titleFragment"
@@ -32,6 +35,9 @@
         <action
             android:id="@+id/action_titleFragment_to_addFragment"
             app:destination="@id/addFragment" />
+        <action
+            android:id="@+id/action_titleFragment_to_aboutFragment"
+            app:destination="@id/aboutFragment" />
     </fragment>
     <fragment
         android:id="@+id/viewFragment"
@@ -74,6 +80,9 @@
         <argument
             android:name="points"
             app:argType="integer" />
+        <argument
+            android:name="gameLength"
+            app:argType="integer" />
     </fragment>
     <fragment
         android:id="@+id/editFragment"
@@ -87,4 +96,9 @@
             android:name="translationKey"
             app:argType="long" />
     </fragment>
+    <fragment
+        android:id="@+id/aboutFragment"
+        android:name="com.example.geres_trainer.screens.about.AboutFragment"
+        android:label="AboutFragment"
+        tools:layout="@layout/about_fragment"/>
 </navigation>

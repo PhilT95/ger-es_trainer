@@ -3,8 +3,8 @@ package com.example.geres_trainer.screens.game
 import android.app.Application
 import androidx.lifecycle.*
 import com.example.geres_trainer.R
-import com.example.geres_trainer.database.Translation
-import com.example.geres_trainer.database.TranslationDBDao
+import com.example.geres_trainer.database.translation.Translation
+import com.example.geres_trainer.database.translation.TranslationDBDao
 import com.example.geres_trainer.util.CountDownTimerPausable
 import kotlinx.coroutines.*
 import java.util.*
@@ -42,7 +42,7 @@ class GameFragmentViewModel (
 
 
 
-    private val gameSize = application.resources.getInteger(R.integer.defaultGameSize)
+    var gameSize = application.resources.getInteger(R.integer.defaultGameSize)
     private val gameTimeDefault = application.resources.getInteger(R.integer.defaultTimeMilli)
     private var gameTime : Long = gameTimeDefault.toLong()
 
@@ -146,7 +146,7 @@ class GameFragmentViewModel (
     private suspend fun initRandomList () {
         var list = emptyList<Translation>()
         withContext(Dispatchers.IO) {
-            list = database.getAllTranslationsNotLive().shuffled().subList(0,6)
+            list = database.getAllTranslationsNotLive().shuffled().subList(0,gameSize)
         }
         randomList = list
         _listIsFilled.value = true

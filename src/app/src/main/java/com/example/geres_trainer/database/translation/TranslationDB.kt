@@ -1,4 +1,4 @@
-package com.example.geres_trainer.database
+package com.example.geres_trainer.database.translation
 
 import android.content.Context
 import androidx.room.Database
@@ -26,7 +26,8 @@ abstract class TranslationDB : RoomDatabase() {
 
             synchronized(this) {
 
-                var instance = INSTANCE
+                var instance =
+                    INSTANCE
 
                 if (instance == null) {
                     instance = Room.databaseBuilder(
@@ -72,12 +73,15 @@ abstract class TranslationDB : RoomDatabase() {
                 val translationData =
                     splitTranslation(value)
 
-                var translation = Translation()
+                var translation =
+                    Translation()
                 translation.wordGer = translationData.get(0)
                 translation.wordES = translationData.get(1)
                 translation.info = translationData.get(2)
 
-                getInstance(context).translationDBDao.insert(translation)
+                getInstance(
+                    context
+                ).translationDBDao.insert(translation)
             }
         }
 

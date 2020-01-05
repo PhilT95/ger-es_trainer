@@ -9,7 +9,7 @@
     <data>
         <variable
             name="translation"
-            type="com.example.geres_trainer.database.Translation" />
+            type="com.example.geres_trainer.database.translation.Translation" />
         <variable
             name="clickListener"
             type="com.example.geres_trainer.util.adapter.TranslationListener" />
